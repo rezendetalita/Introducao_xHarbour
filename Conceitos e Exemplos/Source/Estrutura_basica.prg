@@ -2,6 +2,7 @@
  * Proyecto: Estrutura_basica de um programa em Harbour
 */
 
+
  //início do programa
  PROCEDURE  MAIN()
 
@@ -15,7 +16,7 @@
    *CONSTANTES()
 
    //Tipos de variaveis
-   *TIPOS_VARIAVEIS()
+   TIPOS_VARIAVEIS()
 
    //Condições de decisão
 
