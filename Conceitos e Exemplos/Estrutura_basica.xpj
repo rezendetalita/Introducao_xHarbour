@@ -4,7 +4,7 @@
    <Description Value="Estrutura_basica"/>
    <Output Value="Estrutura_basica.exe"/>
    <Environment Value="xHarbour"/>
-   <MainModule Value=""/>
+   <MainModule Value="Strings_Sentencas_Texto.prg"/>
    <MultipleInstances Value="Y"/>
    <XPManifest Value="Y"/>
    <Icon Value=""/>
@@ -63,6 +63,9 @@
    </VCS>
    <Files>
       <File Filename="Estrutura_basica.prg"/>
+      <File Filename="Strings_Sentencas_Texto.prg"/>
+      <File Filename="Constantes.prg"/>
+      <File Filename="Variaveis.prg"/>
    </Files>
    <Libraries>
       <Library Filename="[xHarbour]rtl.lib"/>

@@ -1,9 +1,29 @@
 /*
  * Proyecto: Estrutura_basica de um programa em Harbour
- */
+*/
 
- PROCEDURE  MAIN     //início do programa
+ //início do programa
+ PROCEDURE  MAIN()
 
-   ? "Introdução a linguagem Harbour "        //conteúdo a ser executado
+   //conteúdo a ser executado
+   ? "Introducao a linguagem Harbour"
 
- RETURN             //fim da execução
+   //Strings e textos
+   *STRINGS_TEXTOS()
+
+   //Constantes
+   *CONSTANTES()
+
+   //Tipos de variaveis
+   //TIPOS_VARIAVEIS()
+
+   //Condições de decisão
+
+   //Condições de repetição
+
+   //Condições de Escolha
+
+   Inkey(0)
+
+ RETURN
+ //fim da execução

@@ -1,0 +1,26 @@
+/*
+ * Proyecto: Variaveis e seus tipos
+ Variáveis são alocações da memória devidamente identifcadas, usadas para armazenar um determinado valor.
+ Valor esse, que pode ser alterado durante a execução do programa.
+
+ Escopo de váriaveis:
+ LOCAL   = Valem apenas dentro do escopo onde foram declaradas.
+ PRIVATE = Valem dentro do escopo onde foram declaradas e em locais onde esse escopo por ventura for solicitado.
+ PUBLIC  = Valem dentro de todo o projeto.
+
+ Tipos de variáveis:
+ numéricas  =
+ caracteres =
+ lógicas    =
+ data       =
+
+
+*/
+
+ FUNCTION TIPOS_VARIAVEIS()
+
+   LOCAL nValor, nValor_decimal
+   PRIVATE
+   PUBLIC
+
+ RETURN NIL

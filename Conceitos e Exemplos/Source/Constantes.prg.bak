@@ -1,0 +1,22 @@
+/*
+ * Proyecto: CONSTANTES
+  As constantes são valores que não se alteram durante a execução do programa.
+  Devem ser declaradas fora do main ou do inicio do bloco de execução e por boa prática
+  costumam ser declaradas em letras MAIÚCULAS.
+
+  Sintaxe:
+   #define NOME_CONSTANTE "Valor da constante"
+*/
+
+ #define PRECO 5.89
+ #define PRODUTO "GASOLINA"
+
+ FUNCTION CONSTANTES()
+
+   ? "--------------------------------------------------"
+   ? "                   Constantes                     "
+   ? "--------------------------------------------------"
+   ? "PRODUTO"     , "PRECO"
+   ?  PRODUTO     ,  PRECO
+
+ RETURN NIL
