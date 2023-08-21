@@ -16,7 +16,10 @@
    *CONSTANTES()
 
    //Tipos de variaveis
-   TIPOS_VARIAVEIS()
+   *TIPOS_VARIAVEIS()
+
+   //Operadores
+   *OPERADORES()
 
    //Condições de decisão
 
@@ -24,6 +27,7 @@
 
    //Condições de Escolha
 
+   //Função para pausar o prompt
    Inkey(0)
 
  RETURN

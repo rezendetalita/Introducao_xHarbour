@@ -66,6 +66,7 @@
       <File Filename="Strings_Sentencas_Texto.prg"/>
       <File Filename="Constantes.prg"/>
       <File Filename="Variaveis.prg"/>
+      <File Filename="Operadores.prg"/>
    </Files>
    <Libraries>
       <Library Filename="[xHarbour]rtl.lib"/>

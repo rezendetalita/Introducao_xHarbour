@@ -2,7 +2,6 @@
  * Proyecto: Estrutura_basica de um programa em Harbour
 */
 
-#include "XEdit.ch"
 
  //início do programa
  PROCEDURE  MAIN()
@@ -14,10 +13,13 @@
    *STRINGS_TEXTOS()
 
    //Constantes
-   *CONSTANTES()
+   CONSTANTES()
 
    //Tipos de variaveis
-   TIPOS_VARIAVEIS()
+   *TIPOS_VARIAVEIS()
+
+   //Operadores
+   *OPERADORES()
 
    //Condições de decisão
 
