@@ -1,8 +1,9 @@
 /*
  * Proyecto: Operadores
- Operadores matematicos
- Operadores lógicos
- Operadores relacionais
+
+ Operadores matematicos: "+", "-", "*", "/"
+ Operadores lógicos    : .AND. , .OR. , !
+ Operadores relacionais: >, <, ==, <>
 */
 
  FUNCTION OPERADORES()
@@ -35,7 +36,8 @@
    ? "Operadores compostos"
    ? "--------------------"
    ? "nVlr1:=(nVlr1-nVlr2): " + AllTrim(Str(nVlr1-nVlr2))
-   ? " nVlr1 -= nVlr2     : " + AllTrim(Str(nVlr1 -= nVlr2))
+   ? "                                                                   "
+   ? "nVlr1 -= nVlr2      : " + AllTrim(Str(nVlr1 -= nVlr2))
    ? "                                                                   "
    ? "Operadores de incremento"
    ? "------------------------"

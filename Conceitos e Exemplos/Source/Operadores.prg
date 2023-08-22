@@ -1,8 +1,9 @@
 /*
  * Proyecto: Operadores
- Operadores matematicos
- Operadores lógicos
- Operadores relacionais
+
+ Operadores matematicos: "+", "-", "*", "/"
+ Operadores lógicos    : .AND. , .OR. , !
+ Operadores relacionais: >, <, ==, <>
 */
 
  FUNCTION OPERADORES()
