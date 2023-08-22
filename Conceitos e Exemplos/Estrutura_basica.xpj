@@ -67,6 +67,8 @@
       <File Filename="Constantes.prg"/>
       <File Filename="Variaveis.prg"/>
       <File Filename="Operadores.prg"/>
+      <File Filename="Estruturas_Condicao.prg"/>
+      <File Filename="Funcoes.prg"/>
    </Files>
    <Libraries>
       <Library Filename="[xharbour]ct.lib"/>

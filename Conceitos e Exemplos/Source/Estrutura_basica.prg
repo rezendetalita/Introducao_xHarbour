@@ -19,13 +19,15 @@
    *TIPOS_VARIAVEIS()
 
    //Operadores
-   OPERADORES()
+   *OPERADORES()
 
-   //Condições de decisão
+   //Condições de controle
+   ESTRUTURAS_CONDICAO()
 
-   //Condições de repetição
+   //Condições de controle
+   //ESTRUTURAS_REPETICAO()
 
-   //Condições de Escolha
+
 
    //Função para pausar o prompt
    Inkey(0)
