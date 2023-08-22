@@ -19,7 +19,7 @@
    *TIPOS_VARIAVEIS()
 
    //Operadores
-   *OPERADORES()
+   OPERADORES()
 
    //Condições de decisão
 

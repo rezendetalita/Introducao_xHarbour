@@ -34,9 +34,9 @@
    ? "                                                                   "
    ? "Operadores compostos"
    ? "--------------------"
-   ? "nVlr1 -= nVlr2: " + AllTrim(Str(nVlr1 -= nVlr2))
-   ? "nVlr1 *= nVlr2: " + AllTrim(Str(nVlr1 *= nVlr2))
-   ? "nVlr1 += nVlr2: " + AllTrim(Str(nVlr1 += nVlr2))
+   ? "nVlr1:=(nVlr1-nVlr2): " + AllTrim(Str(nVlr1-nVlr2))
+   ? "                                                                   "
+   ? "nVlr1 -= nVlr2      : " + AllTrim(Str(nVlr1 -= nVlr2))
    ? "                                                                   "
    ? "Operadores de incremento"
    ? "------------------------"
@@ -48,19 +48,19 @@
    ? "                                                                   "
    ? "Operadores logicos"
    ? "------------------------------------"
-   ? "lVerdade .AND. lFalso  : " , lVerdade .AND. lFalso
-   ? "lVerdade .AND. lVerdade: " , lVerdade .AND. lVerdade
-   ? "lVerdade .OR. lFalso   : " , lVerdade .OR. lFalso
-   ? "lVerdade .OR. lVerdade : " , lVerdade .OR. lVerdade
-   ? "!lVerdade              : " , !lVerdade
-   ? "!lFalso                : " , !lFalso
+   ? "lVerdade .AND. lFalso  : " + ltoc(lVerdade .AND. lFalso)
+   ? "lVerdade .AND. lVerdade: " + ltoc(lVerdade .AND. lVerdade)
+   ? "lVerdade .OR. lFalso   : " + ltoc(lVerdade .OR. lFalso)
+   ? "lVerdade .OR. lVerdade : " + ltoc(lVerdade .OR. lVerdade)
+   ? "!lVerdade              : " + ltoc(!lVerdade)
+   ? "!lFalso                : " + ltoc(!lFalso)
    ? "                                                                   "
    ? "Operadores relacionais"
    ? "------------------------------------"
-   ? "nNum1 > nNum2     : " , nNum1 > nNum2
-   ? "cTexto1 == cTexto2: " , cTexto1 == cTexto2
-   ? "cTexto1 == cTexto2: " , (Len(cTexto1) == Len(cTexto2))
-   ? "nNum1 != cTexto2  : " , nNum1 != cTexto2
+   ? "nNum1 > nNum2     : " + ltoc(nNum1 > nNum2)
+   ? "cTexto1 == cTexto2: " + ltoc(cTexto1 == cTexto2)
+   ? "cTexto1 == cTexto2: " + ltoc((Len(cTexto1) == Len(cTexto2)))
+   ? "nNum1 != cTexto2  : " + ltoc(nNum1 != cTexto2)
    ? "-------------------------------------------------------------------"
 
  RETURN NIL

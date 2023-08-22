@@ -13,10 +13,10 @@
    *STRINGS_TEXTOS()
 
    //Constantes
-   CONSTANTES()
+   *CONSTANTES()
 
    //Tipos de variaveis
-   *TIPOS_VARIAVEIS()
+   TIPOS_VARIAVEIS()
 
    //Operadores
    *OPERADORES()
@@ -27,6 +27,7 @@
 
    //Condições de Escolha
 
+   //Função para pausar o prompt
    Inkey(0)
 
  RETURN

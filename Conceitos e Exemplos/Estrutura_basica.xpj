@@ -69,6 +69,7 @@
       <File Filename="Operadores.prg"/>
    </Files>
    <Libraries>
+      <Library Filename="[xharbour]ct.lib"/>
       <Library Filename="[xHarbour]rtl.lib"/>
       <Library Filename="[xHarbour]vm.lib"/>
       <Library Filename="[xHarbour]gtwin.lib"/>

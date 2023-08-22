@@ -9,7 +9,7 @@
    ? "----------------------------------------------------------------------------------"
    ? "Concatenacao"
    ? "------------"
-   ? "Harbour linguagem de programacao aberta, " +;
+   ? "Harbour linguagem de programacao aberta" +;
      "otima para aplicativos de negocios."
    ? "                                                                                  "
    ? "Reduzir linhas de codigo"

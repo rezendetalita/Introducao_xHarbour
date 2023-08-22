@@ -79,8 +79,10 @@ Classes/Escopo das váriaveis:
    ? "                                                                             "
    ? "Logicas"
    ? "--------"
-   ? "lVerdadeiro: " , lVerdadeiro
-   ? "lFalso     : " , lFalso
+   ? "lVerdadeiro: " + ltoc(lVerdadeiro)
+   ? "lFalso     : " + ltoc(lFalso)
+   /*? "lVerdadeiro: " , lVerdadeiro
+   ? "lFalso     : " , lFalso */
    ? "                                                                             "
    ? "Data"
    ? "-----"
@@ -101,7 +103,7 @@ Classes/Escopo das váriaveis:
    ? "                                                                             "
    ? "Hash"
    ? "-----"
-   ? "hClientes['Clientes']['Nome']: "      + hClientes['Clientes']['Nome']
+   ? "hClientes['Clientes']['Nome']     : " + hClientes['Clientes']['Nome']
    ? "hClientes['Clientes']['Sobrenome']: " + hClientes['Clientes']['Sobrenome']
    ? "-----------------------------------------------------------------------------"
 

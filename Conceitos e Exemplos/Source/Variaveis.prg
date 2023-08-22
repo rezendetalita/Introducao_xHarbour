@@ -79,8 +79,8 @@ Classes/Escopo das váriaveis:
    ? "                                                                             "
    ? "Logicas"
    ? "--------"
-   ? "lVerdadeiro: " , lVerdadeiro
-   ? "lFalso     : " , lFalso
+   ? "lVerdadeiro: " + ltoc(lVerdadeiro)
+   ? "lFalso     : " + ltoc(lFalso)
    ? "                                                                             "
    ? "Data"
    ? "-----"
