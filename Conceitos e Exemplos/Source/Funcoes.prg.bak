@@ -84,9 +84,6 @@ RETURN NIL
       CASE 3
          ? "Opcao escolhida: 3"
          EXIT
-      OTHERWISE
-         ? "Valor invalido"
-         EXIT
    END
 
 RETURN NIL

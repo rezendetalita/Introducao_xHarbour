@@ -69,6 +69,7 @@
       <File Filename="Operadores.prg"/>
       <File Filename="Estruturas_Condicao.prg"/>
       <File Filename="Funcoes.prg"/>
+      <File Filename="Funcoes_Harbour.prg"/>
    </Files>
    <Libraries>
       <Library Filename="[xharbour]ct.lib"/>

@@ -25,6 +25,9 @@
    *ESTRUTURAS_CONDICAO()
 
    //Condições de controle
+   FUNCOES_HARBOUR()
+
+   //Condições de controle
    *ESTRUTURAS_REPETICAO()
 
 

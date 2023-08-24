@@ -88,4 +88,3 @@ RETURN NIL
 
 RETURN NIL
 *----------------------------------------------*
-//FUNCTION GET_TIPO_HISTORICO_VEICULOS(nTipo,cCliFor)
