@@ -15,10 +15,10 @@ SWITH...END = Escolha cCondicao Fim-escolha
  FUNCTION  ESTRUTURAS_CONDICAO()
 
    //IF e ELSE
-   Condicao_IF()
+   *Condicao_IF()
 
    //DO CASE
-   Condicao_DoCase()
+   *Condicao_DoCase()
 
    //SWITCH
    Condicao_Switch()

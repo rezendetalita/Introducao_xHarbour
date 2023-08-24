@@ -19,13 +19,13 @@
    *TIPOS_VARIAVEIS()
 
    //Operadores
-   OPERADORES()
+   *OPERADORES()
 
    //Condições de controle
    *ESTRUTURAS_CONDICAO()
 
    //Condições de controle
-   //ESTRUTURAS_REPETICAO()
+   *ESTRUTURAS_REPETICAO()
 
 
 

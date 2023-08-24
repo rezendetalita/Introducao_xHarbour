@@ -9,9 +9,9 @@ FUNCTION Condicao_IF()
 
    SET DATE BRITISH
 
-   dVencimento   :=CTOD( "17/07/2023" )
+   *dVencimento   :=CTOD( "17/07/2023" )
    *dVencimento   :=CTOD( "28/08/2023" )
-   *dVencimento   :=CTOD( "23/08/2023" )
+   dVencimento   :=CTOD( "22/08/2023" )
 
    nDiasFaltantes:=dVencimento-Date()
 
