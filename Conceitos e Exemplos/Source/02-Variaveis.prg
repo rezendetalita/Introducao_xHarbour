@@ -24,85 +24,83 @@ Classes/Escopo das váriaveis:
 
  FUNCTION VARIAVEIS()
 
-   LOCAL nValor:=0, nValor_Decimal
-   LOCAL cProduto, cObsProduto
-   LOCAL lVerdadeiro, lFalso
-   LOCAL dVencimento
+ LOCAL nValor:=0, nValor_Decimal
+ LOCAL cProduto, cObsProduto
+ LOCAL lVerdadeiro, lFalso
+ LOCAL dVencimento
 
-   LOCAL aProdutos:={}, aLocalProduto:={}
-   LOCAL hClientes:=HASH()
+ LOCAL aProdutos:={}, aLocalProduto:={}
+ LOCAL hClientes:=HASH()
 
-   //PRIVATE
-   //PUBLIC
+ //PRIVATE
+ //PUBLIC
 
-   //Formata data para modo britânico
-   SET DATE BRITISH
+ //Formata data para modo britânico
+ SET DATE BRITISH
 
-   nValor:=12
-   nValor_Decimal:=1.65
+ nValor:=12
+ nValor_Decimal:=1.65
 
-   cProduto:='ARROZ'
-   cObsProduto:='Rapido cozimento,rende muito e fica soltinho'
+ cProduto:='ARROZ'
+ cObsProduto:='Rapido cozimento,rende muito e fica soltinho'
 
-   lVerdadeiro:=.T.
-   lFalso:=.F.
+ lVerdadeiro:=.T.
+ lFalso:=.F.
 
-   dVencimento:=Date()
+ dVencimento:=Date()
 
-   aProdutos:={"ARROZ", "FEIJAO", "ACUCAR", "CAFE"}
-   *            [1]       [2]       [3]      [4]
+ aProdutos:={"ARROZ", "FEIJAO", "ACUCAR", "CAFE"}
+ *            [1]       [2]       [3]      [4]
 
-   aLocalProduto:={{ "Prateleira 101" , "Prateleira 102" },;
-                   { "Prateleira 201" , "Prateleira 202" }}
-   *                     [1][1]       ,      [1][2]
-   *                     [2][1]       ,      [2][2]
+ aLocalProduto:={{ "Prateleira 101" , "Prateleira 102" },;
+                 { "Prateleira 201" , "Prateleira 202" }}
+ *                     [1][1]       ,      [1][2]
+ *                     [2][1]       ,      [2][2]
 
-   hClientes['Clientes']                :=HASH()
-   hClientes['Clientes']['Nome']        :="Joao"
-   hClientes['Clientes']['Sobrenome']   :="Silva"
+ hClientes['Clientes']                :=HASH()
+ hClientes['Clientes']['Nome']        :="Joao"
+ hClientes['Clientes']['Sobrenome']   :="Silva"
 
+ CLEAR
 
-   //Exibição na tela
-   ? "-----------------------------------------------------------------------------"
-   ? "                           Tipos de Variaveis                                "
-   ? "-----------------------------------------------------------------------------"
-   ? "Numericas"
-   ? "---------"
-   ? "nValor        : " + AllTrim(Str(nValor))
-   ? "nValor_Decimal: " + AllTrim(Str(nValor_Decimal))
-   ? "                                                                             "
-   ? "Caracteres"
-   ? "----------"
-   ? "cProduto   : " + cProduto
-   ? "cObsProduto: " + cObsProduto
-   ? "                                                                             "
-   ? "Logicas"
-   ? "--------"
-   ? "lVerdadeiro: " + ltoc(lVerdadeiro)
-   ? "lFalso     : " + ltoc(lFalso)
-   ? "                                                                             "
-   ? "Data"
-   ? "-----"
-   ? "dVencimento: " + DToC(dVencimento)
-   ? "                                                                             "
-   ? "Arrays"
-   ? "-------"
-   ? "Vetor"
-   ? "aProdutos[1]: " + aProdutos[1]
-   ? "aProdutos[2]: " + aProdutos[2]
-   ? "aProdutos[3]: " + aProdutos[3]
-   ? "                                                                             "
-   ? "Matriz"
-   ? "aLocalProduto[1][1]: " + aLocalProduto[1][1]
-   ? "aLocalProduto[1][2]: " + aLocalProduto[1][2]
-   ? "aLocalProduto[2][1]: " + aLocalProduto[2][1]
-   ? "aLocalProduto[2][2]: " + aLocalProduto[2][2]
-   ? "                                                                             "
-   ? "Hash"
-   ? "-----"
-   ? "hClientes['Clientes']['Nome']     : " + hClientes['Clientes']['Nome']
-   ? "hClientes['Clientes']['Sobrenome']: " + hClientes['Clientes']['Sobrenome']
-   ? "-----------------------------------------------------------------------------"
+ //Exibição na tela
+ @ 01,00 SAY "-----------------------------------------------------------------------------"
+ @ 02,00 SAY "                           Tipos de Variaveis                                "
+ @ 03,00 SAY "-----------------------------------------------------------------------------"
+ @ 04,01 SAY "Numericas"
+ @ 06,02 SAY "---------"
+ @ 07,02 SAY "nValor        : " + AllTrim(Str(nValor))
+ @ 08,02 SAY "nValor_Decimal: " + AllTrim(Str(nValor_Decimal))
+ @ 09,02 SAY "                                                                             "
+ @ 10,02 SAY "Caracteres"
+ @ 11,02 SAY "----------"
+ @ 12,02 SAY "cProduto   : " + cProduto
+ @ 13,02 SAY "cObsProduto: " + cObsProduto
+ @ 14,02 SAY "                                                                             "
+ @ 15,01 SAY "Logicas"
+ @ 16,01 SAY "--------"
+ @ 17,01 SAY "lVerdadeiro: " + ltoc(lVerdadeiro)
+ @ 18,01 SAY "lFalso     : " + ltoc(lFalso)
+ @ 20,01 SAY "Data"
+ @ 21,01 SAY "-----"
+ @ 22,02 SAY "dVencimento: " + DToC(dVencimento)
+ @ 24,02 SAY "Arrays"
+ @ 25,02 SAY "-------"
+ @ 26,02 SAY "Vetor"
+ @ 27,02 SAY "aProdutos[1]: " + aProdutos[1]
+ @ 28,02 SAY "aProdutos[2]: " + aProdutos[2]
+ @ 29,02 SAY "aProdutos[3]: " + aProdutos[3]
+ @ 31,01 SAY "Matriz"
+ @ 32,01 SAY "aLocalProduto[1][1]: " + aLocalProduto[1][1]
+ @ 33,01 SAY "aLocalProduto[1][2]: " + aLocalProduto[1][2]
+ @ 34,01 SAY "aLocalProduto[2][1]: " + aLocalProduto[2][1]
+ @ 35,01 SAY "aLocalProduto[2][2]: " + aLocalProduto[2][2]
+ @ 37,01 SAY "Hash"
+ @ 38,01 SAY "-----"
+ @ 39,01 SAY "hClientes['Clientes']['Nome']     : " + hClientes['Clientes']['Nome']
+ @ 40,01 SAY "hClientes['Clientes']['Sobrenome']: " + hClientes['Clientes']['Sobrenome']
+ @ 41,01 SAY "-----------------------------------------------------------------------------"
 
+ Inkey(0)
 
  RETURN NIL
