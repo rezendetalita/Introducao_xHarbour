@@ -6,3 +6,6 @@
  * Fecha: 07-03-2024
  */
 
+ FUNCTION COMANDOS_SET()
+
+ RETURN NIL

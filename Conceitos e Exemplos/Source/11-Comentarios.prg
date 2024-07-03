@@ -6,3 +6,6 @@
  * Fecha: 07-03-2024
  */
 
+ FUNCTION COMENTARIOS()
+
+ RETURN NIL

@@ -1,0 +1,11 @@
+# Backup
+*.bak
+
+# Executáveis
+*.exe.$$$
+
+# Outros
+*.res 
+*.log 
+*.xdt 
+*.old

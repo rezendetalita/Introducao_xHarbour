@@ -22,7 +22,7 @@ Classes/Escopo das váriaveis:
  hash       = um Hash é um tipo especial de array, cujo ponteiro pode ser uma string: hCliente[ "nome" ] := "Joao"
 */
 
- FUNCTION TIPOS_VARIAVEIS()
+ FUNCTION VARIAVEIS()
 
    LOCAL nValor:=0, nValor_Decimal
    LOCAL cProduto, cObsProduto

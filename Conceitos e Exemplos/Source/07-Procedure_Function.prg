@@ -1,4 +1,16 @@
 /*
+ * Proyecto: Estrutura_basica
+ * Fichero: 7-PROCEDURE_FUCTION.prg
+ * Descripción:
+ * Autor:
+ * Fecha: 07-03-2024
+ */
+
+ FUNCTION PROCEDURE_FUNCTION()
+
+ RETURN NIL
+
+ /*
  * Proyecto: Funções do Harbour
  Exemplos de algumas das funções mais usadas.
 */
@@ -40,9 +52,6 @@ FUNCTION FUNCOES_HARBOUR()
    ? "-------"
    ? "nValorItem1 = " + AllTrim(Str(Truncate(nValorItem1,nDecimais)))
    ? "nValorItem3 = " + AllTrim(Str(Truncate(nValorItem3,nDecimais)))
-   ?
-
-
 
 RETURN NIL
 
