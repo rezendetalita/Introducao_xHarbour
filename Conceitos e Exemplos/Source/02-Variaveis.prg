@@ -1,5 +1,4 @@
-/*
- * Proyecto: Variaveis e seus tipos
+/*Proyecto: Variaveis e seus tipos
  Variáveis são alocações da memória devidamente identifcadas, usadas para armazenar um determinado valor.
  Valor esse, que pode ser alterado durante a execução do programa.
 

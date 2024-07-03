@@ -1,19 +1,12 @@
-/*
- * Proyecto: Estrutura_basica de um programa em Harbour
-*/
-
-
+   
  //início do programa
- PROCEDURE  MAIN()
+ PROCEDURE MAIN()
 
    //conteúdo a ser executado
    ? "Introducao a linguagem Harbour"
 
-   //Strings e textos
-   *STRINGS_TEXTOS()
-
    //Constantes
-   *CONSTANTES()
+   CONSTANTES()
 
    //Tipos de variaveis
    *TIPOS_VARIAVEIS()
@@ -25,11 +18,13 @@
    *ESTRUTURAS_CONDICAO()
 
    //Condições de controle
-   FUNCOES_HARBOUR()
+   *FUNCOES_HARBOUR()
 
    //Condições de controle
    *ESTRUTURAS_REPETICAO()
 
+   //Strings e textos
+   *STRINGS_TEXTOS()
 
 
    //Função para pausar o prompt
@@ -37,3 +32,5 @@
 
  RETURN
  //fim da execução
+
+

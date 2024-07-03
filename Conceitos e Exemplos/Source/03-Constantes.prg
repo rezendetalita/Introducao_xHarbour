@@ -24,17 +24,15 @@
  // Alterar a cor do texto
  SET COLOR TO VERDE
  ? "Texto definido como verde"
- SET COLOR TO BRANCO
- ? "Texto definido como branco"
  SET COLOR TO VERMELHO
  ? "Texto definido como vermelho"
+ SET COLOR TO BRANCO
+ ? "Texto definido como branco"
  ? "--------------------------------------------"
- SET COLOR TO BLANK
- ? "--------------------------------------------"
-   ? "PRODUTO: " + PRODUTO
-   ? "A VISTA: " + AllTrim(Str(PRECO1))
-   ? "A VISTA: " + Str(PRECO1)
-   ? "A PRAZO: " + AllTrim(Str(PRECO2))
-   ? "------------------------------------------"
+ ? "PRODUTO: " + PRODUTO
+ ? "A VISTA: " + AllTrim(Str(PRECO1))
+ ? "A VISTA: " + Str(PRECO1)
+ ? "A PRAZO: " + AllTrim(Str(PRECO2))
+ ? "------------------------------------------"
 
  RETURN NIL

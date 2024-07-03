@@ -81,8 +81,6 @@ Classes/Escopo das váriaveis:
    ? "--------"
    ? "lVerdadeiro: " + ltoc(lVerdadeiro)
    ? "lFalso     : " + ltoc(lFalso)
-   /*? "lVerdadeiro: " , lVerdadeiro
-   ? "lFalso     : " , lFalso */
    ? "                                                                             "
    ? "Data"
    ? "-----"

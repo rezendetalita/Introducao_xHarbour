@@ -62,14 +62,19 @@
       <Type Value="None"/>
    </VCS>
    <Files>
-      <File Filename="Estrutura_basica.prg"/>
       <File Filename="Strings_Sentencas_Texto.prg"/>
-      <File Filename="Constantes.prg"/>
-      <File Filename="Variaveis.prg"/>
-      <File Filename="Operadores.prg"/>
-      <File Filename="Estruturas_Condicao.prg"/>
       <File Filename="Funcoes.prg"/>
       <File Filename="Funcoes_Harbour.prg"/>
+      <File Filename="01-Main.prg"/>
+      <File Filename="02-Variaveis.prg"/>
+      <File Filename="03-Constantes.prg"/>
+      <File Filename="04-Operadores.prg"/>
+      <File Filename="05-Estruturas_Controle.prg"/>
+      <File Filename="06-Estrutura_Repeticao.prg"/>
+      <File Filename="08-Banco_Dados_DBF.prg"/>
+      <File Filename="09-Tela.prg"/>
+      <File Filename="10-Comandos_SET.prg"/>
+      <File Filename="11-Comentarios.prg"/>
    </Files>
    <Libraries>
       <Library Filename="[xharbour]ct.lib"/>
