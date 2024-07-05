@@ -3,7 +3,6 @@
 
 # Executáveis
 *.exe.$$$
-*Estrutura_basica.exe.$$$
 
 # Outros
 *.res 
