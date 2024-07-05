@@ -1,8 +1,6 @@
-/*
- * Proyecto: Estrutura_basica de um programa em Harbour
-*/
+//Estrutura_basica de um programa em xHarbour
 
- // início do programa
+// início do programa
  PROCEDURE MAIN()
 
  LOCAL nOpcao:=0, GetList:={}
