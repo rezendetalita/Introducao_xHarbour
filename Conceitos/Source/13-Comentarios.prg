@@ -1,0 +1,4 @@
+*---------------------*
+ FUNCTION COMENTARIOS()
+
+ RETURN NIL

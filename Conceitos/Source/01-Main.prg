@@ -1,29 +1,35 @@
-//Estrutura_basica de um programa em xHarbour
-
-// início do programa
+*---------------*
  PROCEDURE MAIN()
 
  LOCAL nOpcao:=0, GetList:={}
-
- @ 01,00 SAY Replicate("-",80)
- @ 02,00 SAY PadC("Introducao a linguagem Harbour",80)
- @ 03,00 SAY Replicate("-",80)
+ *
+ SET DATE       BRIT
+ SET CENTURY    ON
+ SET EPOCH      TO 1950
+ *
+ LIMPAR_TELA()
+ *
+ @ 01,00 SAY Replicate("-",119)
+ @ 02,00 SAY PadC("Introducao a linguagem Harbour",119)
+ @ 03,00 SAY Replicate("-",119)
  @ 04,01 SAY "Informe uma opcao: " GET nOpcao PICT "9"
- @ 06,02 SAY "1 - MAIN()"
- @ 07,02 SAY "2 - Variaveis"
- @ 08,02 SAY "3 - Constantes"
- @ 09,02 SAY "4 - Operadores"
- @ 10,02 SAY "5 - Estruturas de controle"
- @ 11,02 SAY "6 - Estruturas de repeticao"
- @ 12,02 SAY "7 - PROCEDURE e FUNCTION"
- @ 13,02 SAY "8 - Banco de dados DBF"
- @ 14,02 SAY "9 - Tela"
- @ 15,01 SAY "10 - Comandos SET"
- @ 16,01 SAY "11 - Comentarios"
- @ 17,01 SAY "12 - Ponto e vírgula"
-
+ @ 06,01 SAY " 1 - MAIN()"
+ @ 07,01 SAY " 2 - Variaveis"
+ @ 08,01 SAY " 3 - Constantes"
+ @ 09,01 SAY " 4 - Operadores"
+ @ 10,01 SAY " 5 - Estruturas de controle"
+ @ 11,01 SAY " 6 - Estruturas de repeticao"
+ @ 12,01 SAY " 7 - Funcoes"
+ @ 13,01 SAY " 8 - Funcoes do xHarbour"
+ @ 14,01 SAY " 9 - PROCEDURE"
+ @ 15,01 SAY "10 - Banco de dados DBF"
+ @ 16,01 SAY "11 - Tela"
+ @ 17,01 SAY "12 - Comandos SET"
+ @ 18,01 SAY "13 - Comentarios"
+ @ 19,01 SAY "14 - Ponto e virgula"
+ *
  READ
-
+ *
  DO CASE
     CASE nOpcao==1
        //
@@ -38,18 +44,21 @@
     CASE nOpcao==6
        ESTRUTURAS_REPETICAO()
     CASE nOpcao==7
-       PROCEDURE_FUNCTION()
+       FUNCOES()
     CASE nOpcao==8
-       BANCO_DADOS_DBF()
+       FUNCOES_XHARBOUR()
     CASE nOpcao==9
-       TELA()
+       PROCEDURE()
     CASE nOpcao==10
-       COMANDOS_SET()
+       BANCO_DADOS_DBF()
     CASE nOpcao==11
-       COMENTARIOS()
+       TELA()
     CASE nOpcao==12
+       COMANDOS_SET()
+    CASE nOpcao==13
+       COMENTARIOS()
+    CASE nOpcao==14
        PONTO_E_VIRGULA()
  END
-
+ *
  RETURN
- //fim da execução
