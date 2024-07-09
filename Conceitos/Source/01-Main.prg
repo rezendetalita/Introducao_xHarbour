@@ -19,12 +19,12 @@
  @ 09,01 SAY " 4 - Operadores"
  @ 10,01 SAY " 5 - Estruturas de controle"
  @ 11,01 SAY " 6 - Estruturas de repeticao"
- @ 12,01 SAY " 7 - Funcoes"
- @ 13,01 SAY " 8 - Funcoes do xHarbour"
- @ 14,01 SAY " 9 - PROCEDURE"
- @ 15,01 SAY "10 - Banco de dados DBF"
- @ 16,01 SAY "11 - Tela"
- @ 17,01 SAY "12 - Comandos SET"
+ @ 12,01 SAY " 7 - SET"
+ @ 13,01 SAY " 8 - Funcoes"
+ @ 14,01 SAY " 9 - Funcoes do xHarbour"
+ @ 15,01 SAY "10 - PROCEDURE"
+ @ 16,01 SAY "11 - Banco de dados DBF"
+ @ 17,01 SAY "12 - Tela"
  @ 18,01 SAY "13 - Comentarios"
  @ 19,01 SAY "14 - Ponto e virgula"
  *
@@ -44,17 +44,17 @@
     CASE nOpcao==6
        ESTRUTURAS_REPETICAO()
     CASE nOpcao==7
-       FUNCOES()
+       COMANDO_SET()
     CASE nOpcao==8
-       FUNCOES_XHARBOUR()
+       FUNCOES()
     CASE nOpcao==9
-       PROCEDURE()
+       FUNCOES_XHARBOUR()
     CASE nOpcao==10
-       BANCO_DADOS_DBF()
+       PROCEDURE()
     CASE nOpcao==11
-       TELA()
+       BANCO_DADOS_DBF()
     CASE nOpcao==12
-       COMANDOS_SET()
+       TELA()
     CASE nOpcao==13
        COMENTARIOS()
     CASE nOpcao==14

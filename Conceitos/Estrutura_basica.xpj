@@ -68,12 +68,12 @@
       <File Filename="04-Operadores.prg"/>
       <File Filename="05-Estruturas_Controle.prg"/>
       <File Filename="06-Estruturas_Repeticao.prg"/>
-      <File Filename="07-Funcoes.prg"/>
-      <File Filename="08-Funcoes_xHarbour.prg"/>
-      <File Filename="09-Procedure.prg"/>
-      <File Filename="10-Banco_Dados_Dbf.prg"/>
-      <File Filename="11-Tela.prg"/>
-      <File Filename="12-Comandos_Set.prg"/>
+      <File Filename="07-Set.prg"/>
+      <File Filename="08-Funcoes.prg"/>
+      <File Filename="09-Funcoes_xHarbour.prg"/>
+      <File Filename="10-Procedure.prg"/>
+      <File Filename="11-Banco_Dados_Dbf.prg"/>
+      <File Filename="12-Tela.prg"/>
       <File Filename="13-Comentarios.prg"/>
       <File Filename="14-Ponto_e_Virgula.prg"/>
    </Files>

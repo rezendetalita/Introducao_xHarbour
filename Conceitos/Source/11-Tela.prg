@@ -1,4 +1,0 @@
-*--------------*
- FUNCTION TELA()
-
- RETURN NIL

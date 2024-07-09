@@ -14,7 +14,13 @@
  @ 03,00 SAY Replicate("-",119)
  *
  @ 04,01 SAY "Verifique o prg Procedure"
-
+ *
+ PAUSAR_TELA()
+ *
+ IF LastKey()==27
+    MAIN()
+ ENDIF
+ *
  RETURN
 
 *----------------------*
