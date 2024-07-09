@@ -3,7 +3,7 @@
 
  LOCAL nOpcao:=0, GetList:={}
  *
- SET DATE       BRIT
+ SET DATE       BRITISH
  SET CENTURY    ON
  SET EPOCH      TO 1950
  *

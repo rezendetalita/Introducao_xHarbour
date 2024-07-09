@@ -9,6 +9,8 @@
 *---------------------*
  PROCEDURE PROCEDURE()
 
+ LIMPAR_TELA()
+ *
  @ 01,00 SAY Replicate("-",119)
  @ 02,00 SAY PadC("PROCEDURE",119)
  @ 03,00 SAY Replicate("-",119)
