@@ -2,6 +2,8 @@
  PROCEDURE MAIN()
 
  LOCAL nOpcao:=0, GetList:={}
+ MEMVAR cCliente
+ PUBLIC cCliente:="JOAO SILVA"
  *
  SET DATE       BRITISH
  SET CENTURY    ON

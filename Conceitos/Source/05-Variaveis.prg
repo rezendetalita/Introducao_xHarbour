@@ -23,8 +23,9 @@ Escopo das variáveis:
 
  LOCAL nNumero, nPreco, cLetra, cTexto, lVerdadeiro, lFalso, aVetor, aMatriz, dData
  LOCAL hClientes:=HASH()
+
+ MEMVAR nValor, cCliente
  PRIVATE nValor
- //MEMVAR cCliente
 
  //Variavel PRIVATE
  nValor:=10
@@ -63,7 +64,7 @@ Escopo das variáveis:
  @ 05,01 SAY "PRIVATE"
  @ 06,01 SAY "nValor:   " + AllTrim(Str(PRIVATE()))
  @ 08,01 SAY "PUBLIC"
- @ 09,01 SAY "cCliente: " //+ AllTrim(cCliente)
+ @ 09,01 SAY "cCliente: " + AllTrim(cCliente)
  *
  @ 11,00 SAY Replicate("-",119)
  @ 12,00 SAY PadC("Tipos de Variaveis",119)
@@ -101,10 +102,9 @@ Escopo das variáveis:
 *---------------------------*
  FUNCTION PRIVATE()
 
- LOCAL nValor2
+ LOCAL nValor2:=50
  MEMVAR nValor
 
- nValor2:=50
  nValor:=nValor+nValor2
 
  RETURN nValor
