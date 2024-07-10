@@ -14,12 +14,6 @@
  *
  @ 04,01 SAY "Verifique o prg Set"
  *
- PAUSAR_TELA()
- *
- IF LastKey()==27
-    MAIN()
- ENDIF
- *
  * Sintaxe:
  *
  * Há uma infinidade de configurações. Abaixo estão as que mais usamos
@@ -104,5 +98,12 @@
  * CtoD("05/27/1910") // resultado: 05/27/1910
  * CtoD("05/27/69")   // resultado: 05/27/1969
  * CtoD("05/27/06")   // resultado: 05/27/2006
+ *
+ *
+ PAUSAR_TELA()
+ *
+ IF LastKey()==27
+    MAIN()
+ ENDIF
  *
  RETURN NIL
