@@ -21,34 +21,73 @@ Escopo das variáveis:
 
  FUNCTION VARIAVEIS()
 
- PRIVATE nValor:=10.5
+ LOCAL nNumero, nPreco, cLetra, cTexto, lVerdadeiro, lFalso, aVetor, aMatriz, dData
+ LOCAL hClientes:=HASH()
+ PRIVATE nValor
+ //MEMVAR cCliente
 
- ESCOPO()
+ //Variavel PRIVATE
+ nValor:=10
+
+ // Númerica
+ nNumero:=1
+ nPreco:=1.50
+
+ // Caracter
+ cLetra:='C'
+ cTexto:="Oi, tudo bem?"
+
+ // Lógica
+ lVerdadeiro:=.T.
+ lFalso:=.F.
+
+ // Array
+ aVetor:={"Um","Dois","Tres","Quatro","Cinco","Seis"}
+
+ aMatriz:={{"Um","Dois"},{"Tres","Quatro"},{"Cinco","Seis"}}
+
+ // Data
+ dData:=01/01/1900
+
+ //Hash
+ hClientes['Clientes']              :=HASH()
+ hClientes['Clientes']['Nome']      :="Joao"
+ hClientes['Clientes']['Sobrenome'] :="Silva"
  *
- @ 07,00 SAY Replicate("=",119)
- @ 08,00 SAY PadC("Tipos de Variaveis",119)
- @ 09,00 SAY Replicate("=",119)
+ LIMPAR_TELA()
+
+ @ 01,00 SAY Replicate("-",119)
+ @ 02,00 SAY PadC("Escopo de Variaveis",119)
+ @ 03,00 SAY Replicate("-",119)
  *
- @ 11,01 SAY "Numericas"
- @ 12,01 SAY  NUMERICAS()
+ @ 05,01 SAY "PRIVATE"
+ @ 06,01 SAY "nValor:   " + AllTrim(Str(PRIVATE()))
+ @ 08,01 SAY "PUBLIC"
+ @ 09,01 SAY "cCliente: " //+ AllTrim(cCliente)
  *
- @ 14,01 SAY "Caracteres"
- @ 15,01 SAY  CARACTERES()
+ @ 11,00 SAY Replicate("-",119)
+ @ 12,00 SAY PadC("Tipos de Variaveis",119)
+ @ 13,00 SAY Replicate("-",119)
  *
- @ 17,01 SAY "Logicas"
- @ 18,01 SAY  LOGICAS()
+ @ 15,01 SAY "nNumero:      " + AllTrim(Str(nNumero))
+ @ 16,01 SAY "nPreco:       " + AllTrim(Str(nPreco))
  *
- @ 20,01 SAY "Data"
- @ 21,01 SAY DATA()
+ @ 18,01 SAY "cLetra:       " + cLetra
+ @ 19,01 SAY "cTexto:       " + cTexto
  *
- @ 23,01 SAY "Vetor"
- @ 24,01 SAY VETOR()
+ @ 21,01 SAY "lVerdadeiro:  " + LToC(lVerdadeiro)
+ @ 22,01 SAY "lFalso:       " + LToC(lFalso)
  *
- @ 26,01 SAY "Matriz"
- @ 27,01 SAY MATRIZ()
+ @ 24,01 SAY "aVetor[1]:    " + aVetor[1]
+ @ 25,01 SAY "aVetor[2]:    " + aVetor[2]
+ @ 26,01 SAY "aVetor[3]:    " + aVetor[3]
  *
- @ 29,01 SAY "Hash"
- @ 30,01 SAY HASH()
+ @ 28,01 SAY "aMatriz[2,2]: " + aMatriz[2,2]
+ @ 29,01 SAY "aMatriz[3,1]: " + aMatriz[3,1]
+ @ 30,01 SAY "aMatriz[3,2]: " + aMatriz[3,2]
+ *
+ @ 32,01 SAY "hClientes['Clientes']['Nome']     : " + hClientes['Clientes']['Nome']
+ @ 33,01 SAY "hClientes['Clientes']['Sobrenome']: " + hClientes['Clientes']['Sobrenome']
 
  PAUSAR_TELA()
  *
@@ -60,115 +99,12 @@ Escopo das variáveis:
  RETURN NIL
 
 *---------------------------*
- FUNCTION ESCOPO()
+ FUNCTION PRIVATE()
 
- LOCAL nSomatorio,nValor2
- MEMVAR nValor, nJuros
+ LOCAL nValor2
+ MEMVAR nValor
 
- nValor2:=5
- nSomatorio:= nValor + nValor2
+ nValor2:=50
+ nValor:=nValor+nValor2
 
- LIMPAR_TELA()
-
- @ 01,00 SAY Replicate("=",119)
- @ 02,00 SAY PadC("Escopo de Variaveis",119)
- @ 03,00 SAY Replicate("=",119)
-
- @ 05,01 SAY "PRIVATE: " + AllTrim(Str(nValor))
- @ 06,01 SAY "PUBLIC : " + AllTrim(Str(nJuros))
- @ 07,01 SAY "LOCAL  : " + AllTrim(Str(nSomatorio))
-
- RETURN NIL
-
- *--------------------*
- FUNCTION NUMERICAS()
-
- LOCAL nInteiro, nDecimal, nSoma
-
- nInteiro:=12
- nDecimal:=1.65
-
- @ 14,01 SAY "nInteiro: " + AllTrim(Str(nInteiro))
- @ 15,01 SAY "nDecimal: " + AllTrim(Str(nDecimal))
-
- RETURN NIL
-
-*--------------------*
- FUNCTION CARACTERES()
-
- LOCAL cProduto, cObsProduto
-
- cProduto:='PRODUTO'
- cObsProduto:='Lorem ipsum tellus pulvinar, tempor...'
-
- @ 18,01 SAY "cProduto   : " + cProduto
- @ 19,01 SAY "cObsProduto: " + cObsProduto
-
- RETURN NIL
-
-*--------------------*
- FUNCTION LOGICAS()
-
- LOCAL lTrue, lFalse
-
- lTrue:=.T.
- lFalse:=.F.
-
- @ 22,01 SAY "lTrue : " + ltoc(lTrue)
- @ 23,01 SAY "lFalse: " + ltoc(lFalse)
- RETURN NIL
-
-*--------------------*
- FUNCTION DATA()
-
- LOCAL dVencimento
-
- dVencimento:=Date()
-
- @ 26,01 SAY "dVencimento: " + DToC(dVencimento)
-
- RETURN NIL
-
-*--------------------*
- FUNCTION VETOR()
-
- LOCAL aProdutos:={}
-
- aProdutos:={"PRODUTO_1", "PRODUTO_2", "PRODUTO_3", "PRODUTO_4"}
- *               [1]         [2]           [3]         [4]
-
- @ 29,01 SAY "aProdutos[1]: " + aProdutos[1]
- @ 30,01 SAY "aProdutos[2]: " + aProdutos[2]
- @ 31,01 SAY "aProdutos[3]: " + aProdutos[3]
-
- RETURN NIL
-
-*--------------------*
- FUNCTION HASH()
-
- LOCAL hClientes:=HASH()
-
- hClientes['Clientes']              :=HASH()
- hClientes['Clientes']['Nome']      :="Joao"
- hClientes['Clientes']['Sobrenome'] :="Silva"
-
- @ 40,01 SAY "hClientes['Clientes']['Nome']     : " + hClientes['Clientes']['Nome']
- @ 41,01 SAY "hClientes['Clientes']['Sobrenome']: " + hClientes['Clientes']['Sobrenome']
-
- RETURN NIL
-
-*--------------------*
- FUNCTION MATRIZ()
-
- LOCAL aLocalProduto:={}
-
- aLocalProduto:={{ "Prateleira 101" , "Prateleira 102" },;
-                 { "Prateleira 201" , "Prateleira 202" }}
- *                     [1][1]       ,      [1][2]
- *                     [2][1]       ,      [2][2]
- @ 34,01 SAY "aLocalProduto[1][1]: " + aLocalProduto[1][1]
- @ 35,01 SAY "aLocalProduto[1][2]: " + aLocalProduto[1][2]
- @ 36,01 SAY "aLocalProduto[2][1]: " + aLocalProduto[2][1]
- @ 37,01 SAY "aLocalProduto[2][2]: " + aLocalProduto[2][2]
-
- RETURN NIL
+ RETURN nValor
