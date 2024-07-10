@@ -63,19 +63,20 @@
    </VCS>
    <Files>
       <File Filename="01-Main.prg"/>
-      <File Filename="02-Variaveis.prg"/>
-      <File Filename="03-Constantes.prg"/>
-      <File Filename="04-Operadores.prg"/>
-      <File Filename="05-Estruturas_Controle.prg"/>
-      <File Filename="06-Estruturas_Repeticao.prg"/>
-      <File Filename="07-Set.prg"/>
-      <File Filename="08-Funcoes.prg"/>
-      <File Filename="09-Funcoes_xHarbour.prg"/>
-      <File Filename="10-Procedure.prg"/>
-      <File Filename="11-Banco_Dados_Dbf.prg"/>
-      <File Filename="12-Tela.prg"/>
-      <File Filename="13-Comentarios.prg"/>
-      <File Filename="14-Ponto_e_Virgula.prg"/>
+	  <File Filename="02-Ponto_e_Virgula.prg"/>
+	  <File Filename="03-Comentarios.prg"/>
+	  <File Filename="04-Constantes.prg"/>
+      <File Filename="05-Variaveis.prg"/>
+      <File Filename="06-Operadores.prg"/>
+      <File Filename="07-Estruturas_Controle.prg"/>
+      <File Filename="08-Estruturas_Repeticao.prg"/>
+      <File Filename="09-Set.prg"/>
+      <File Filename="10-Funcoes.prg"/>
+      <File Filename="11-Funcoes_xHarbour.prg"/>
+      <File Filename="12-Procedure.prg"/>
+      <File Filename="13-Banco_Dados_Dbf.prg"/>
+      <File Filename="14-Tela.prg"/>
+
    </Files>
    <Libraries>
       <Library Filename="[xharbour]ct.lib"/>

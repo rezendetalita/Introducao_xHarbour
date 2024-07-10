@@ -1,7 +1,7 @@
 /*
  Procedures são como funções, mas elas não tem retorno.
  Se tirarmos o RETURN informado nas procedures abaixo, você verá que o projeto será compilado e executado normalmente.
- O RETURN é apenas para vermos onde a a PROCEDURE termina.
+ O RETURN é apenas para vermos onde a PROCEDURE termina.
 
  Normalmente, optamos por utilizar FUNCTION com RETURN NIL, ao invés de PROCEDURE.
 */
