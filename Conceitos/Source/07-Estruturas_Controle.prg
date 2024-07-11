@@ -1,47 +1,57 @@
 /* Estruturas de controle
-   Nas estruturas de controle, determinada ação ocorre caso uma condição seja Verdadeira ou Falsa
+   Nas estruturas de controle, determinada ação ocorre caso uma condição seja Verdadeira ou Falsa*/
 
 * =============================================================================== *
 *                                    Sintaxe - IF                                 *
-   IF <condição>
-      se a condição for .T., faça algo
-   ENDIF
+*   IF <condição>
+*      se a condição for .T., faça algo
+*   ENDIF
 
-   IF <condição>
-      se a condição for .T., faça algo
-    ELSE
-      senão, faça outra coisa
-   ENDIF
-
-   IF <condição>
-      se a condição for .T., faça algo
-    ELSEIF <condição2>
-      senão se a condição2 for .T., faça algo
-    ELSE
-      senão, se nenhuma das condições anteriores for .T., faça outra coisa
-   ENDIF
+*   IF <condição>
+*      se a condição for .T., faça algo
+*    ELSE
+*      senão, faça outra coisa
+*   ENDIF
+*
+*   IF <condição>
+*      se a condição for .T., faça algo
+*    ELSEIF <condição2>
+*      senão se a condição2 for .T., faça algo
+*    ELSE
+*      senão, se nenhuma das condições anteriores for .T., faça outra coisa
+*   ENDIF
 
    //Sintaxe especial do IF
-   IIF{condição, se a condição for .T. faça algo, senão faça outra coisa}
+*   IIF{condição, se a condição for .T. faça algo, senão faça outra coisa}
 
 * =============================================================================== *
 *                                   Sintaxe - DO CASE                             *
 
-   DO CASE
-      CASE <condição1>
-           faça algo
-      CASE <condição2>
-           faça algo
-      .
-      .
-      .
-      OTHERWISE
-           caso nenhuma condição seja atendida
-   ENDCASE
+*   DO CASE
+*      CASE <condição1>
+*           faça algo
+*      CASE <condição2>
+*           faça algo
+*      .
+*      .
+*      .
+*      OTHERWISE
+*          caso nenhuma condição seja atendida
+*   ENDCASE
 
 * =============================================================================== *
-*                                   Sintaxe - SWITCH                              *
-   SWITCH...END = Escolha cCondicao Fim-escolha
+*                                   Sintaxe - SWITCH
+*
+*   SWITCH <xVariavel>
+*     CASE <valor1>
+*         <instruções>...
+*         [EXIT]
+*     CASE <valor2>]
+*         <instruções>...
+*         [EXIT]
+*     [OTHERWISE]
+*         <instruções>...
+*   END
 */
 * =============================================================================== *
 
