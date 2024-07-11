@@ -1,113 +1,149 @@
-/*
- * Proyecto: Estruturas de decisão
-Nas estruturas de decisao, determinada ação ocorre caso uma condição seja Verdadeira ou Falsa
+/* Estruturas de controle
+   Nas estruturas de controle, determinada ação ocorre caso uma condição seja Verdadeira ou Falsa
 
-IF...ENDIF                 =  Se cCondicao Fim-se
-IF...ELSE..ENDIF           =  Se cCondicao Senão Fim-se
-IF...ELSEIF...ELSE...ENDIF =  Se cCondicao Senão-se cCondicao SenãoFim-se
-IIF{}                      =  Se cCondicao Senão Fim-se, tudo em uma única linha
+* =============================================================================== *
+*                                    Sintaxe - IF                                 *
+   IF <condição>
+      se a condição for .T., faça algo
+   ENDIF
 
-DO CASE...ENDCASE =  Caso cCondicao Fim-caso
+   IF <condição>
+      se a condição for .T., faça algo
+    ELSE
+      senão, faça outra coisa
+   ENDIF
 
-SWITH...END = Escolha cCondicao Fim-escolha
+   IF <condição>
+      se a condição for .T., faça algo
+    ELSEIF <condição2>
+      senão se a condição2 for .T., faça algo
+    ELSE
+      senão, se nenhuma das condições anteriores for .T., faça outra coisa
+   ENDIF
+
+   //Sintaxe especial do IF
+   IIF{condição, se a condição for .T. faça algo, senão faça outra coisa}
+
+* =============================================================================== *
+*                                   Sintaxe - DO CASE                             *
+
+   DO CASE
+      CASE <condição1>
+           faça algo
+      CASE <condição2>
+           faça algo
+      .
+      .
+      .
+      OTHERWISE
+           caso nenhuma condição seja atendida
+   ENDCASE
+
+* =============================================================================== *
+*                                   Sintaxe - SWITCH                              *
+   SWITCH...END = Escolha cCondicao Fim-escolha
 */
+* =============================================================================== *
 
  FUNCTION  ESTRUTURAS_CONTROLE()
 
-   //IF e ELSE
-   *Condicao_IF()
+ LIMPAR_TELA()
 
-   //DO CASE
-   *Condicao_DoCase()
+ @ 01,00 SAY Replicate("-",119)
+ @ 02,00 SAY PadC("Estruturas de controle/decisao",119)
+ @ 03,00 SAY Replicate("-",119)
+ *
+ @ 04,00 SAY "IF...ELSEIF...ELSE"
+ @ 05,01 SAY CONDICAO_IF()
+ *
+ @ 08,00 SAY Replicate("-",119)
+ *
+ @ 10,00 SAY "DO CASE"
+ @ 11,01 SAY "Motivo da desoneracao: " + DO_CASE()
+ *
+ @ 12,00 SAY Replicate("-",119)
+ *
+ @ 13,00 SAY "SWITCH"
+ @ 14,01 SAY SWITCH()
 
-   //SWITCH
-   Condicao_Switch()
 
-RETURN NIL
+ PAUSAR_TELA()
+ *
+ IF LastKey()==27
+    MAIN()
+ ENDIF
+ *
 
-*----------------------------------------------*
-FUNCTION Condicao_IF()
-
-   LOCAL dVencimento, nDiasFaltantes
-
-   SET DATE BRITISH
-
-   *dVencimento   :=CTOD( "17/07/2023" )
-   *dVencimento   :=CTOD( "28/08/2023" )
-   dVencimento   :=CTOD( "22/08/2023" )
-
-   nDiasFaltantes:=dVencimento-Date()
-
-   ? "----------------------------------------------------------------------"
-   ? "                    Estrutura de Decisao - IF/ELSE                    "
-   ? "----------------------------------------------------------------------"
-   ?"                                                                       "
-   ?"Data da busca  : " , DToC(Date())
-   ?"Data vencimento: " , dVencimento
-   ?"                                                                       "
-   IF dVencimento<Date()
-      ? "Produto vencido, retire do estoque!"
-    ELSEIF dVencimento==Date()
-      ? "Hoje e a data limite de venda do produto."
-    ELSE
-      ? "Produto dentro da data de validade," + ;
-        "faltam "+AllTrim(Str(nDiasFaltantes))+ ;
-        "dias para o vencimento."
-   ENDIF
-
-RETURN NIL
-*----------------------------------------------*
-
-FUNCTION Condicao_DoCase()
-
-   LOCAL nNota:=0
-
-   ? "----------------------------------------------------------------------"
-   ? "                   Estrutura de Decisao - DO CASE                     "
-   ? "----------------------------------------------------------------------"
-   ?"                                                                       "
-   // Recebe o valor da nota
-   INPUT "Informe a nota do aluno : " TO nNota
-
-   // Decide se foi aprovado ou não de acordo com a média
-   DO CASE
-      CASE ( nNota > 10 ) .OR. ( nNota < 0 )
-         ? "Valor invalido"
-      CASE ( nNota >= 7 )
-         ? "Aluno Aprovado"
-      CASE ( nNota >= 5 )
-         ? "Aluno em Recuperacao"
-      CASE ( nNota >= 0 )	
-         ? "Aluno Reprovado"
-      OTHERWISE
-         ? "Valor invalido"
-   ENDCASE
-
-RETURN NIL
+ RETURN NIL
 
 *----------------------------------------------*
+ FUNCTION CONDICAO_IF()
 
- FUNCTION Condicao_Switch()
+ LOCAL cUF:='MG'
 
-   LOCAL nOpc
+ @ 06,01 SAY "UF informada: " + AllTrim(cUF)
 
-   ? "----------------------------------------------------------------------"
-   ? "                  Estrutura de Decisao - SWITCH                       "
-   ? "----------------------------------------------------------------------"
-   ?"                                                                       "
-   INPUT "Escolha uma opcao( 1 , 2 ou 3)  : " TO nOpc
+ IF cUF='AC'
+    @ 07,01 SAY "CodIBGE inicia com: 12"
+  ELSEIF cUF='AL'
+    @ 07,01 SAY "CodIBGE inicia com: 27"
+  ELSEIF cUF='AP'
+    @ 07,01 SAY "CodIBGE inicia com: 16"
+  ELSEIF cUF='AM'
+    @ 07,01 SAY "CodIBGE inicia com: 13"
+  ELSEIF cUF='MG'
+    @ 07,01 SAY "CodIBGE inicia com: 31"
+  ELSE
+    @ 07,01 SAY "UF nao cadastrada."
+ ENDIF
 
-   SWITCH nOpc
-      CASE 1
-         ? "Opcao escolhida: 1"
-         EXIT
-      CASE 2
-         ? "Opcao escolhida: 2"
-         EXIT
-      CASE 3
-         ? "Opcao escolhida: 3"
-         EXIT
-   END
-
-RETURN NIL
+ RETURN NIL
 *----------------------------------------------*
+
+ FUNCTION DO_CASE()
+
+ LOCAL nTipo:=3, cDescrOpc:=''
+
+ DO CASE
+   CASE nTipo==0
+      cDescrOpc:='                                                                '
+   CASE nTipo==1
+      cDescrOpc:='Taxi                                                            '
+   CASE nTipo==3
+      cDescrOpc:='Produtor Agropecuario                                           '
+   CASE nTipo==4
+      cDescrOpc:='Frotista/Locadora                                               '
+   CASE nTipo==5
+      cDescrOpc:='Diplomatico/Consular                                            '
+   CASE nTipo==6
+      cDescrOpc:='Utilitarios e Motocicletas da Amazonia e Areas de Livre Comercio'
+   OTHERWISE
+      cDescrOpc:='Motivo invalido'
+ ENDCASE
+
+RETURN cDescrOpc
+
+*----------------------------------------------*
+
+ FUNCTION SWITCH()
+
+ LOCAL cRetorno:='', nOpc
+
+ INPUT "Escolha uma opcao de 1 a 4: " TO nOpc
+ *
+ SWITCH nOpc
+   CASE 1
+      cRetorno:='Inclusao de cheque'
+      EXIT
+   CASE 2
+      cRetorno:='Pagamento com cheque'
+      EXIT
+   CASE 3
+      cRetorno:='Recebimento com cheque'
+      EXIT
+   CASE 4
+      cRetorno:='Transferencia do cheque'
+      EXIT
+ END
+ *
+ RETURN cRetorno
