@@ -25,7 +25,7 @@
  *
  * Procura uma letra ou palavra em uma string, e retorna sua posicao. Exemplo:
  *
- * At("i","Sommus Sistemas")        // resultado: 2
+ * At("i","Sommus Sistemas")        // resultado: 9
  * At("Sistemas","Sommus Sistemas") // resultado: 8
  *
  * =============================================================================
