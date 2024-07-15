@@ -38,7 +38,7 @@
  * "AB"   = ""     // resultado: .T.
  * ""     = "AB"   // resultado: .F.
  * "AB"   = "AB  " // resultado: .F.
-
+ *
  * SET EXACT ON
  * "AB"   = "ABCD" // resultado: .F.
  * "ABCD" = "AB"   // resultado: .F.
@@ -80,10 +80,10 @@
  * Determina se o ano será exibido em 2 ou 4 dígitos. Exemplo:
  *
  * SET CENTURY ON
- * Date() // resultado: 31/12/24
+ * Date() // resultado: 31/12/2024
  *
  * SET CENTURY OFF
- * Date() // resultado: 31/12/2024
+ * Date() // resultado: 31/12/24
  *
  * =============================================================================
  *                           SET EPOCH TO ano
@@ -93,6 +93,7 @@
  * SET EPOCH TO 1900
  * CtoD("05/27/1903") // resultado: 05/27/1903
  * CtoD("05/27/55")   // resultado: 05/27/1955
+ * CtoD("05/27/06")   // resultado: 05/27/1906
  *
  * SET EPOCH TO 1950
  * CtoD("05/27/1910") // resultado: 05/27/1910
