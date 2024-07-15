@@ -20,7 +20,7 @@
  ENDIF
  *
  * =============================================================================
- *                          Criação - DBCreate()
+ *                             Criação de tabela
  *
  * Cria uma tabela. Exemplo:
  *
@@ -55,7 +55,7 @@
  * Dos 6 dígitos definidos no tamanho, 2 deles serão reservados aos decimais e 1 à vírgula. Portanto, nesse campo há espaço para até 3 inteiros.
  *
  * =============================================================================
- *                       Abertura e seleção - SELECT e USE
+ *                       Abertura e seleção de tabela
  *
  * Sempre que a aplicação precisar acessar uma tabela, seja para inserir, alterar, excluir ou ler os dados dela, essa tabela tem que estar aberta e selecionada.
  * Para abrir uma tabela usamos dois comandos:
@@ -97,7 +97,7 @@
  * Use-o com sabedoria e cuidado, caso contrário, a aplicação irá ler ou alterar os dados da tabela errada.
  *
  * =============================================================================
- *                         Fechamento - DbCloseAll()
+ *                         Fechamento de tabela
  *
  * Fecha todas as tabelas abertas. Use-o sempre que terminar de usá-las. Exemplo:
  /*
@@ -123,14 +123,14 @@
  * Portanto, pra não ter que ficar abrindo e fechando tabela toda hora, apenas feche quando tudo tiver terminado.
  *
  * =============================================================================
- *          Novo registro -  DBAppend(), REPLACE, DBCommit() e DBCommitAll()
+ *                            Novo registro
  *
  * Para criar um novo registro na tabela:
  *
  * 1 - Selecione a tabela              = SELECT
  * 2 - Crie um novo registro em branco = DBAppend()
  * 3 - Preencha os campos              = REPLACE
- * 4 - Salve as inserções              = DBCommit()
+ * 4 - Salve as inserções              = DBCommit() ou DBCommitAll()
  *
  * Exemplo:
  /*
@@ -158,6 +158,73 @@
    DBCommitAll()
  */
  * =============================================================================
+ *                            Alterar um registro
  *
+ * Para alterar um registro na tabela:
  *
+ * 1 - Selecione a tabela    = SELECT
+ * 2 - Posicione no registro = Vamos ver isso mais pra frente
+ * 3 - Trave o registro      = RLock()
+ * 4 - Preencha cos campos   = REPLACE
+ * 5 - Salve as alterações   = DBCommit() ou DBCommitAll()
+ * 6 - Destrave o registro   = DBUnlock() ou DBUnlockAll()
+ *
+ * Exemplo:
+ /*
+   SELECT PRODUTOS
+   RLock()
+   REPLACE NOME WITH "ABACAXI"
+   DBCommit()
+   DBUnlock()
+ */
+ * Assim como DBCommitAll(), você pode usar DBUnlockAll() para desbloquear todos os registros travados:
+ /*
+   SELECT PRODUTOS
+   RLock()
+   REPLACE NOME WITH "ABACAXI"
+   *
+   SELECT CLIENTES
+   RLock()
+   REPLACE NOME WITH "MARIA"
+   *
+   DBCommitAll()
+   DBUnlockAll()
+ */
+ * Os exemplos acima alteram o primeiro registro das tabelas PRODUTOS e CLIENTES.
+ * Para alterar outro registro, você precisa posicionar nele, antes de travá-lo.
+ *
+ * Geralmente, isso é feito com DBSeek() ou DBSkip().
+ * Vamos abordar esse assunto mais pra frente.
+ *
+ * Outro detalhe, é possível travar uma tabela toda com a função FLock().
+ * Mas é indicado apenas em casos de extrema necessidade.
+ *
+ * =============================================================================
+ *                           Exclusão de um registro
+ *
+ * Para excluir um registro na tabela:
+ *
+ * 1 - Selecione a tabela              = SELECT
+ * 2 - Posicione no registro           = Vamos ver isso mais pra frente
+ * 3 - Trave o registro                = RLock()
+ * 4 - Marque o registro como deletado = DELETE
+ * 5 - Destrave o registro             = DBUnlock() ou DBUnlockAll()
+ *
+ * Exemplo:
+ /*
+   SELECT PRODUTOS
+   RLock()
+   DELETE
+   DBUnlock()
+ */
+ * Para remover registros marcados como deletados para "sempre" (isso é feito ao reindexar o Autosys), use o comando PACK.
+ * Esse comando só funciona se a tabela tiver sido aberta em modo exclusivo.
+ *
+ * Exemplo:
+ /*
+   SELECT 0
+   USE PRODUTOS EXCLUSIVE
+   PACK
+ */
+ * =============================================================================
  RETURN NIL
