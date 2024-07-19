@@ -13,22 +13,23 @@
  *
  @ 04,01 SAY "Verifique o prg Banco_Dados_Dbf"
  *
- PAUSAR_TELA()
- *
- IF LastKey()==27
-    MAIN()
- ENDIF
- *
  * =============================================================================
  *                             Criação de tabela
  *
  * Cria uma tabela. Exemplo:
+ /*
+ IF !IsDirectory("DBF")
+    Run("MD DBF")
+ ENDIF
  *
- /* DBCreate("PRODUTOS.DBF",{{"CODIGO" ,"N",05,0},;
-                             {"NOME"   ,"C",50,0},;
-                             {"PRECO"  ,"N",06,2},;
-                             {"DATA"   ,"D",08,0},;
-                             {"INATIVO","L",01,0}})
+ DBCreate("DBF\PRODUTOS.DBF",{{"CODIGO" ,"N",05,0},;
+                              {"NOME"   ,"C",50,0},;
+                              {"PRECO"  ,"N",06,2},;
+                              {"DATA"   ,"D",08,0},;
+                              {"INATIVO","L",01,0}})
+
+ DBCreate("DBF\CLIENTES.DBF",{{"CODIGO" ,"N",05,0},;
+                              {"NOME"   ,"C",50,0}})
  */
  * O primeiro parâmetro é o nome da tabela, e o segundo um array com a estrutura da tabela.
  *
@@ -59,29 +60,31 @@
  *
  * Sempre que a aplicação precisar acessar uma tabela, seja para inserir, alterar, excluir ou ler os dados dela, essa tabela tem que estar aberta e selecionada.
  * Para abrir uma tabela usamos dois comandos:
- *
- * SELECT 1      // Prepara uma área de ID 1 para "armazenar" a tabela que será aberta em seguida
- * USE PRODUTOS  // Abre a tabela PRODUTOS
- *
- * SELECT 2     // Prepara uma área de ID 2 para "armazenar" a tabela que será aberta em seguida
- * USE CLIENTES // Abre a tabela CLIENTES
- *
+ /*
+ SELECT 1          // Prepara uma área de ID 1 para "armazenar" a tabela que será aberta em seguida
+ USE DBF\PRODUTOS  // Abre a tabela PRODUTOS
+
+ SELECT 2         // Prepara uma área de ID 2 para "armazenar" a tabela que será aberta em seguida
+ USE DBF\CLIENTES // Abre a tabela CLIENTES
+ */
  * Para cada tabela, deve haver uma área somente para ela. Por exemplo, se você fizer isso:
- *
- * SELECT 1
- * USE PRODUTOS
- *
- * SELECT 1
- * USE CLIENTES
+ /*
+ SELECT 1
+ USE DBF\PRODUTOS
+
+ SELECT 1
+ USE DBF\CLIENTES
+ */
  *
  * A tabela PRODUTOS será fechada, porque a CLIENTES foi aberta na área em que ela estava.
  * Para evitar esse tipo de problema, sempre use SELECT 0. Ao usar o 0, a aplicação usará a próxima área disponível automaticamente:
+ /*
+ SELECT 0     // Prepara a área de ID 1
+ USE DBF\PRODUTOS
  *
- * SELECT 0     // Prepara a área de ID 1
- * USE PRODUTOS
- *
- * SELECT 0     // Prepara a área de ID 2
- * USE CLIENTES
+ SELECT 0     // Prepara a área de ID 2
+ USE DBF\CLIENTES
+ */
  *
  * Depois de abrir a tabela, ela ficará selecionada automaticamente.
  * No exemplo, a tabela CLIENTES está selecionada, porque ela foi aberta por último.
@@ -101,22 +104,22 @@
  *
  * Fecha todas as tabelas abertas. Use-o sempre que terminar de usá-las. Exemplo:
  /*
-   SELECT 0
-   USE PRODUTOS
+ SELECT 0
+ USE DBF\PRODUTOS
 
-   SELECT 0
-   USE CLIENTES
+ SELECT 0
+ USE DBF\CLIENTES
 
-   SELECT PRODUTOS
-   // ... faz alguma coisa na PRODUTOS ...
+ SELECT PRODUTOS
+ // ... faz alguma coisa na PRODUTOS ...
 
-   SELECT CLIENTES
-   // ... faz alguma coisa na CLIENTES ...
+ SELECT CLIENTES
+ // ... faz alguma coisa na CLIENTES ...
 
-   SELECT PRODUTOS
-   // ... faz mais alguma coisa na PRODUTOS ...
+ SELECT PRODUTOS
+ // ... faz mais alguma coisa na PRODUTOS ...
 
-   DBCloseAll() // Fecha todas as tabelas, porque elas não serão mais usadas
+ DBCloseAll() // Fecha todas as tabelas, porque elas não serão mais usadas
  */
  *
  * Lembrando que depois de fechada, a aplicação não consegue usar mais a tabela.
@@ -127,42 +130,54 @@
  *
  * Para criar um novo registro na tabela:
  *
- * 1 - Selecione a tabela              = SELECT
+ * 1 - Selecione a tabela              = SELECT (a tabela precisa estar aberta)
  * 2 - Crie um novo registro em branco = DBAppend()
  * 3 - Preencha os campos              = REPLACE
  * 4 - Salve as inserções              = DBCommit() ou DBCommitAll()
  *
  * Exemplo:
  /*
-   SELECT PRODUTOS
-   DBAppend()
-   REPLACE CODIGO  WITH 1
-   REPLACE NOME    WITH "PRODUTO TESTE"
-   REPLACE PRECO   WITH 2.50
-   REPLACE DATA    WITH CToD("01/01/2024")
-   REPLACE INATIVO WITH .F.
-   DBCommit()
+ SELECT 0
+ USE DBF\PRODUTOS
+
+ SELECT PRODUTOS
+ DBAppend()
+ REPLACE CODIGO  WITH 1
+ REPLACE NOME    WITH "PRODUTO TESTE"
+ REPLACE PRECO   WITH 2.50
+ REPLACE DATA    WITH CToD("18/07/2024")
+ REPLACE INATIVO WITH .F.
+ DBCommit()
+
+ DBCloseAll()
  */
  * Você pode usar DBCommitAll(), ao invés de DBCommit(), para salvar tudo de uma vez. Exemplo:
  /*
-   SELECT PRODUTOS
-   DBAppend()
-   REPLACE CODIGO  WITH 1
-   REPLACE NOME    WITH "PRODUTO TESTE"
-   *
-   SELECT CLIENTES
-   DBAppend()
-   REPLACE CODIGO WITH 1
-   REPLACE NOME   WITH "JOSÉ"
-   *
-   DBCommitAll()
+ SELECT 0
+ USE DBF\PRODUTOS
+
+ SELECT 0
+ USE DBF\CLIENTES
+
+ SELECT PRODUTOS
+ DBAppend()
+ REPLACE CODIGO  WITH 1
+ REPLACE NOME    WITH "PRODUTO TESTE"
+
+ SELECT CLIENTES
+ DBAppend()
+ REPLACE CODIGO WITH 1
+ REPLACE NOME   WITH "JOSÉ"
+
+ DBCommitAll()
+ DBCloseAll()
  */
  * =============================================================================
  *                            Alterar um registro
  *
  * Para alterar um registro na tabela:
  *
- * 1 - Selecione a tabela    = SELECT
+ * 1 - Selecione a tabela    = SELECT (a tabela precisa estar aberta)
  * 2 - Posicione no registro = Vamos ver isso mais pra frente
  * 3 - Trave o registro      = RLock()
  * 4 - Preencha cos campos   = REPLACE
@@ -171,24 +186,35 @@
  *
  * Exemplo:
  /*
-   SELECT PRODUTOS
-   RLock()
-   REPLACE NOME WITH "ABACAXI"
-   DBCommit()
-   DBUnlock()
+ SELECT 0
+ USE DBF\PRODUTOS
+
+ SELECT PRODUTOS
+ RLock()
+ REPLACE NOME WITH "AMORA"
+ DBCommit()
+ DBUnlock()
+
+ DBCloseAll()
  */
  * Assim como DBCommitAll(), você pode usar DBUnlockAll() para desbloquear todos os registros travados:
  /*
-   SELECT PRODUTOS
-   RLock()
-   REPLACE NOME WITH "ABACAXI"
-   *
-   SELECT CLIENTES
-   RLock()
-   REPLACE NOME WITH "MARIA"
-   *
-   DBCommitAll()
-   DBUnlockAll()
+ SELECT 0
+ USE DBF\PRODUTOS
+
+ SELECT 0
+ USE DBF\CLIENTES
+
+ SELECT PRODUTOS
+ RLock()
+ REPLACE NOME WITH "ABACAXI"
+
+ SELECT CLIENTES
+ RLock()
+ REPLACE NOME WITH "MARIA"
+
+ DBCommitAll()
+ DBUnlockAll()
  */
  * Os exemplos acima alteram o primeiro registro das tabelas PRODUTOS e CLIENTES.
  * Para alterar outro registro, você precisa posicionar nele, antes de travá-lo.
@@ -212,19 +238,29 @@
  *
  * Exemplo:
  /*
-   SELECT PRODUTOS
-   RLock()
-   DELETE
-   DBUnlock()
+ SELECT 0
+ USE DBF\PRODUTOS
+
+ SELECT PRODUTOS
+ RLock()
+ DELETE
+ DBUnlock()
  */
  * Para remover registros marcados como deletados para "sempre" (isso é feito ao reindexar o Autosys), use o comando PACK.
  * Esse comando só funciona se a tabela tiver sido aberta em modo exclusivo.
  *
  * Exemplo:
  /*
-   SELECT 0
-   USE PRODUTOS EXCLUSIVE
-   PACK
+ SELECT 0
+ USE DBF\PRODUTOS
+ PACK
  */
  * =============================================================================
+ *
+ PAUSAR_TELA()
+ *
+ IF LastKey()==27
+    MAIN()
+ ENDIF
+ *
  RETURN NIL

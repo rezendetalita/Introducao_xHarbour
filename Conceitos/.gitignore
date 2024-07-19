@@ -10,3 +10,6 @@
 *.xdt 
 *.old
 *.xml
+
+# Dbf
+*.dbf
