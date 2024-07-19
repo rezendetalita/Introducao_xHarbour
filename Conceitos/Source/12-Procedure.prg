@@ -28,12 +28,17 @@
 *----------------------*
  PROCEDURE LIMPAR_TELA()
 
+ * O comando abaixo pode ser usado no prompt para limpar a tela :)
+
  CLS
 
  RETURN
 
 *----------------------*
  PROCEDURE PAUSAR_TELA()
+
+ * A função abaixo fica aguardando que uma tecla seja pressionada pelo usuário.
+ * Além disso, ela retorna o código da tecla, assim como a função LastKey().
 
  Inkey(0)
 
