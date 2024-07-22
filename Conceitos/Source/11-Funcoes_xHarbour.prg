@@ -193,30 +193,30 @@
  * A função ValToPrg() aceita um valor de qualquer tipo e retorna uma string contendo o código PRG.
  * Geralmente usamos em debug, quando queremos exibir o conteúdo de uma variável em uma mensagem.
  /*
-   MessageBox(,ValToPrg("xHarbour"))             // resultado: "xHarbour"
-   *
-   MessageBox(,ValToPrg(1.2345))                 // resultado: "         1.2345"
-   *
-   MessageBox(,ValToPrg(Date()))                 // resultado: "SToD('20240708')"
-   *
-   MessageBox(,ValToPrg(.T.))                    // resultado: ".T."
-   *
-   MessageBox(,ValToPrg({1,2,3}))                // resultado: "M->__ValToPrg_Array := Array(3)
-                                                 //                M->__ValToPrg_Array[1] :=          1
-                                                 //                M->__ValToPrg_Array[2] :=          2
-                                                 //                M->__ValToPrg_Array[3] :=          3"
-   *
-   MessageBox(,ValToPrg({{1,2},{3,4}}))          // resultado: "M->__ValToPrg_Array := Array(2)
-                                                 //                M->__ValToPrg_Array[1] := Array(2)
-                                                 //                   M->__ValToPrg_Array[1][1] :=          1
-                                                 //                   M->__ValToPrg_Array[1][2] :=          2
-                                                 //                M->__ValToPrg_Array[2] := Array(2)
-                                                 //                   M->__ValToPrg_Array[2][1] :=          3
-                                                 //                   M->__ValToPrg_Array[2][2] :=          4"
-   *
-   MessageBox(,ValToPrg({ "A" => 1, "B" => 2 })) // resultado: { "A" =>  1, "B" =>  2 }
-   *
-   MessageBox(,ValToPrg(NIL))                    // resultado: NIL
+ MessageBox(,ValToPrg("xHarbour"))             // resultado: "xHarbour"
+
+ MessageBox(,ValToPrg(1.2345))                 // resultado: "         1.2345"
+
+ MessageBox(,ValToPrg(Date()))                 // resultado: "SToD('20240708')"
+
+ MessageBox(,ValToPrg(.T.))                    // resultado: ".T."
+
+ MessageBox(,ValToPrg({1,2,3}))                // resultado: "M->__ValToPrg_Array := Array(3)
+                                               //                M->__ValToPrg_Array[1] :=          1
+                                               //                M->__ValToPrg_Array[2] :=          2
+                                               //                M->__ValToPrg_Array[3] :=          3"
+
+ MessageBox(,ValToPrg({{1,2},{3,4}}))          // resultado: "M->__ValToPrg_Array := Array(2)
+                                               //                M->__ValToPrg_Array[1] := Array(2)
+                                               //                   M->__ValToPrg_Array[1][1] :=          1
+                                               //                   M->__ValToPrg_Array[1][2] :=          2
+                                               //                M->__ValToPrg_Array[2] := Array(2)
+                                               //                   M->__ValToPrg_Array[2][1] :=          3
+                                               //                   M->__ValToPrg_Array[2][2] :=          4"
+
+ MessageBox(,ValToPrg({ "A" => 1, "B" => 2 })) // resultado: { "A" =>  1, "B" =>  2 }
+
+ MessageBox(,ValToPrg(NIL))                    // resultado: NIL
  */
  * =============================================================================
  *                              MessageBox()
@@ -279,9 +279,9 @@
  * É uma boa prática verificar se o arquivo não existe, antes de criá-lo. Use a função File() para isso.
  * Além disso, é comum salvar o retorno de FCreate() em uma variável, para poder manipular o arquivo depois (ex: FWrite(), FClose()):
  /*
-   IF !File("teste.txt")
-      nArquivo:=FCreate("teste.txt")
-   ENDIF
+ IF !File("teste.txt")
+    nArquivo:=FCreate("teste.txt")
+ ENDIF
  */
  *
  * =============================================================================
@@ -295,9 +295,9 @@
  * Assim como em FCreate(), é comum salvar o ID do arquivo em uma variável, para manipular o arquivo em seguida.
  * Lembre-se de verificar se o arquivo existe antes de abri-lo. Caso contrário, o retorno de FOpen() será -1 (significa que a abertura deu erro).
  /*
-   IF File("teste.txt")
-      nArquivo:=FOpen("teste.txt")
-   ENDIF
+ IF File("teste.txt")
+    nArquivo:=FOpen("teste.txt")
+ ENDIF
  */
  *
  * Por padrão, o arquivo será aberto em modo leitura. Se necessário escrever no arquivo, informe o segundo parâmetro (nMode), para abrir em modo escrita:
@@ -317,11 +317,11 @@
  *
  * Fecha o arquivo criado ou aberto anteriormente. Exemplo:
  /*
-   nArquivo_Temporario:=FCreate("teste.tmp")
-   nArquivo_Teste     :=FOpen("teste.txt")
-   *
-   FClose(nArquivo_Temporario)
-   FClose(nArquivo_Teste)
+ nArquivo_Temporario:=FCreate("teste.tmp")
+ nArquivo_Teste     :=FOpen("teste.txt")
+
+ FClose(nArquivo_Temporario)
+ FClose(nArquivo_Teste)
  */
  * Sempre feche um arquivo depois que terminar de usá-lo.
  *
@@ -330,12 +330,12 @@
  *
  * Escreve no arquivo criado ou aberto anteriormente. Exemplo:
  /*
-   nArquivo:=FCreate("teste_fwrite.txt")
-   *
-   FWrite(nArquivo,"Início")
-   FWrite(nArquivo,"Fim")
-   *
-   FClose(nArquivo)
+ nArquivo:=FCreate("teste_fwrite.txt")
+
+ FWrite(nArquivo,"Início")
+ FWrite(nArquivo,"Fim")
+
+ FClose(nArquivo)
  */
  * No exemplo acima, FWrite() escreve no arquivo, a partir da posição atual.
  * Ao criar o arquivo, a posição atual será o início dele.
@@ -347,12 +347,12 @@
  *
  * Para pular a linha, coloque a quebra de linha no final da string:
  /*
-   nArquivo:=FCreate("teste_fwrite.txt")
-   *
-   FWrite(nArquivo,"Início"+Chr(13)+Chr(10))
-   FWrite(nArquivo,"Fim"+Chr(13)+Chr(10))
-   *
-   FClose(nArquivo)
+ nArquivo:=FCreate("teste_fwrite.txt")
+
+ FWrite(nArquivo,"Início"+Chr(13)+Chr(10))
+ FWrite(nArquivo,"Fim"+Chr(13)+Chr(10))
+
+ FClose(nArquivo)
  */
  * O arquivo ficará assim:
  *
@@ -367,29 +367,29 @@
  * Antes do FWrite(), altere a posição para o final do arquivo, com a função FSeek().
  * Isso vai evitar que o conteúdo já existente seja sobrescrito. Exemplo:
  /*
-   nArquivo:=FOpen("teste_fwrite.txt", 1)
-   *
-   FSeek(nArquivo,0,2)
-   *
-   FWrite(nArquivo,"Mensagem"+Chr(13)+Chr(10))
-   *
-   FClose(nArquivo)
+ nArquivo:=FOpen("teste_fwrite.txt", 1)
+
+ FSeek(nArquivo,0,2)
+
+ FWrite(nArquivo,"Mensagem"+Chr(13)+Chr(10))
+
+ FClose(nArquivo)
  */
  * =============================================================================
  *                Dica - File() + FCreate() + FOpen()
  *
  * Você pode usar File() para decidir se vai criar o arquivo, ou abri-lo. Exemplo:
  /*
-   IF !File("teste.txt")
-      nArquivo:=FCreate("teste.txt")
-    ELSE
-      nArquivo:=FOpen("teste.txt")
-      FSeek(nArquivo,0,2)
-   ENDIF
-   *
-   FWrite(nArquivo,"Mensagem"+Chr(13)+Chr(10))
-   *
-   FClose(nArquivo)
+ IF !File("teste.txt")
+    nArquivo:=FCreate("teste.txt")
+  ELSE
+    nArquivo:=FOpen("teste.txt")
+    FSeek(nArquivo,0,2)
+ ENDIF
+
+ FWrite(nArquivo,"Mensagem"+Chr(13)+Chr(10))
+
+ FClose(nArquivo)
  */
  * =============================================================================
  *                                FError()
@@ -402,23 +402,23 @@
  *
  * Exemplo:
  /*
-   nArquivo:=FOpen("teste.txt")
-   *
-   IF FError()>0
-      MessageBox(,"Erro ao abrir o arquivo. Código: "+Str(FError()))
-   ENDIF
-   *
-   FWrite(nArquivo,"Mensagem")
-   *
-   IF FError()>0
-      MessageBox(,"Erro ao escrever no arquivo. Código: "+Str(FError()))
-   ENDIF
-   *
-   FClose(nArquivo)
-   *
-   IF FError()>0
-      MessageBox(,"Erro ao fechar o arquivo. Código: "+Str(FError()))
-   ENDIF
+ nArquivo:=FOpen("teste.txt")
+
+ IF FError()>0
+    MessageBox(,"Erro ao abrir o arquivo. Código: "+Str(FError()))
+ ENDIF
+
+ FWrite(nArquivo,"Mensagem")
+
+ IF FError()>0
+    MessageBox(,"Erro ao escrever no arquivo. Código: "+Str(FError()))
+ ENDIF
+
+ FClose(nArquivo)
+
+ IF FError()>0
+    MessageBox(,"Erro ao fechar o arquivo. Código: "+Str(FError()))
+ ENDIF
  */
  * No exemplo acima, ocorrerá um erro de código 5 (acesso negado) no FWrite(), porque o arquivo foi aberto em modo leitura.
  *
