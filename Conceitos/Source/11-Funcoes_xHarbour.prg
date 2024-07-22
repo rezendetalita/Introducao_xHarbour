@@ -427,8 +427,8 @@
  *
  * Converte um número ASCII em caractere:
  *
- * Chr(65)  // resultado: "A"
- * Chr(322) // resultado: "B"
+ * Chr(65) // resultado: "A"
+ * Chr(66) // resultado: "B"
  *
  * Geralmente usamos quando queremos a quebra de linha CR + LF, que seria: Chr(13)+Chr(10)
  *
