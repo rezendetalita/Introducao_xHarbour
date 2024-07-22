@@ -17,11 +17,11 @@
  *                             Criação de tabela
  *
  * Cria uma tabela. Exemplo:
- /*
+/*
  IF !IsDirectory("DBF")
     Run("MD DBF")
  ENDIF
- *
+
  IF !File("DBF\PRODUTOS.DBF")
     DBCreate("DBF\PRODUTOS.DBF",{{"CODIGO" ,"N",05,0},;
                                  {"NOME"   ,"C",50,0},;
@@ -184,7 +184,7 @@
  * 1 - Selecione a tabela    = SELECT (a tabela precisa estar aberta)
  * 2 - Posicione no registro = Vamos ver isso mais pra frente
  * 3 - Trave o registro      = RLock()
- * 4 - Preencha cos campos   = REPLACE
+ * 4 - Preencha os campos    = REPLACE
  * 5 - Salve as alterações   = DBCommit() ou DBCommitAll()
  * 6 - Destrave o registro   = DBUnlock() ou DBUnlockAll()
  *
@@ -256,7 +256,7 @@
  * Exemplo:
  /*
  SELECT 0
- USE DBF\PRODUTOS
+ USE DBF\PRODUTOS EXCLUSIVE
  PACK
  */
  * =============================================================================
