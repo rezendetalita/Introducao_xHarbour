@@ -22,14 +22,18 @@
     Run("MD DBF")
  ENDIF
  *
- DBCreate("DBF\PRODUTOS.DBF",{{"CODIGO" ,"N",05,0},;
-                              {"NOME"   ,"C",50,0},;
-                              {"PRECO"  ,"N",06,2},;
-                              {"DATA"   ,"D",08,0},;
-                              {"INATIVO","L",01,0}})
+ IF !File("DBF\PRODUTOS.DBF")
+    DBCreate("DBF\PRODUTOS.DBF",{{"CODIGO" ,"N",05,0},;
+                                 {"NOME"   ,"C",50,0},;
+                                 {"PRECO"  ,"N",06,2},;
+                                 {"DATA"   ,"D",08,0},;
+                                 {"INATIVO","L",01,0}})
+ ENDIF
 
- DBCreate("DBF\CLIENTES.DBF",{{"CODIGO" ,"N",05,0},;
-                              {"NOME"   ,"C",50,0}})
+ IF !File("DBF\CLIENTES.DBF")
+    DBCreate("DBF\CLIENTES.DBF",{{"CODIGO" ,"N",05,0},;
+                                 {"NOME"   ,"C",50,0}})
+ ENDIF
  */
  * O primeiro parâmetro é o nome da tabela, e o segundo um array com a estrutura da tabela.
  *
@@ -81,7 +85,7 @@
  /*
  SELECT 0     // Prepara a área de ID 1
  USE DBF\PRODUTOS
- *
+
  SELECT 0     // Prepara a área de ID 2
  USE DBF\CLIENTES
  */
@@ -102,7 +106,7 @@
  * =============================================================================
  *                         Fechamento de tabela
  *
- * Fecha todas as tabelas abertas. Use-o sempre que terminar de usá-las. Exemplo:
+ * DBCloseAll() fecha todas as tabelas abertas. Use-o sempre que terminar de usá-las. Exemplo:
  /*
  SELECT 0
  USE DBF\PRODUTOS
