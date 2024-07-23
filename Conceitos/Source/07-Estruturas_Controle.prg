@@ -116,15 +116,15 @@
 
  DO CASE
    CASE nTipo==0
-      cDescrOpc:='                                                                '
+      cDescrOpc:=' '
    CASE nTipo==1
-      cDescrOpc:='Taxi                                                            '
+      cDescrOpc:='Taxi'
    CASE nTipo==3
-      cDescrOpc:='Produtor Agropecuario                                           '
+      cDescrOpc:='Produtor Agropecuario'
    CASE nTipo==4
-      cDescrOpc:='Frotista/Locadora                                               '
+      cDescrOpc:='Frotista/Locadora'
    CASE nTipo==5
-      cDescrOpc:='Diplomatico/Consular                                            '
+      cDescrOpc:='Diplomatico/Consular'
    CASE nTipo==6
       cDescrOpc:='Utilitarios e Motocicletas da Amazonia e Areas de Livre Comercio'
    OTHERWISE
