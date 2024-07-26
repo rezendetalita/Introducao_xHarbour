@@ -17,7 +17,7 @@
  *                             Criação de tabela
  *
  * Cria uma tabela. Exemplo:
-/*
+ /*
  IF !IsDirectory("DBF")
     Run("MD DBF")
  ENDIF
@@ -91,7 +91,7 @@
  */
  *
  * Depois de abrir a tabela, ela ficará selecionada automaticamente.
- * No exemplo, a tabela CLIENTES está selecionada, porque ela foi aberta por último.
+ * No exemplo acima, a tabela CLIENTES está selecionada, porque ela foi aberta por último.
  *
  * Para trocar de tabela, você precisa selecioná-la, dessa forma:
  *
@@ -147,7 +147,7 @@
  SELECT PRODUTOS
  DBAppend()
  REPLACE CODIGO  WITH 1
- REPLACE NOME    WITH "PRODUTO TESTE"
+ REPLACE NOME    WITH "PRODUTO TESTE 1"
  REPLACE PRECO   WITH 2.50
  REPLACE DATA    WITH CToD("18/07/2024")
  REPLACE INATIVO WITH .F.
@@ -172,6 +172,11 @@
  DBAppend()
  REPLACE CODIGO  WITH 3
  REPLACE NOME    WITH "PRODUTO TESTE 3"
+
+ SELECT PRODUTOS
+ DBAppend()
+ REPLACE CODIGO  WITH 4
+ REPLACE NOME    WITH "PRODUTO TESTE 4"
 
  SELECT CLIENTES
  DBAppend()
@@ -276,11 +281,11 @@
  SELECT 0
  USE DBF\PRODUTOS
 
- MessageBox(,"Código: " +Str(PRODUTOS->CODIGO)  +Chr(13)+Chr(10)+;
-             "Nome: "   +PRODUTOS->NOME         +Chr(13)+Chr(10)+;
-             "Preço: "  +Str(PRODUTOS->PRECO)   +Chr(13)+Chr(10)+;
-             "Data: "   +DToC(PRODUTOS->DATA)   +Chr(13)+Chr(10)+;
-             "Inativo: "+LToC(PRODUTOS->INATIVO)+Chr(13)+Chr(10))
+ MessageBox(,"Código: "              +Str(PRODUTOS->CODIGO)  +Chr(13)+Chr(10)+;
+             "Nome: "                +PRODUTOS->NOME         +Chr(13)+Chr(10)+;
+             "Preço: "               +Str(PRODUTOS->PRECO)   +Chr(13)+Chr(10)+;
+             "Data: "                +DToC(PRODUTOS->DATA)   +Chr(13)+Chr(10)+;
+             "Inativo: "             +LToC(PRODUTOS->INATIVO)+Chr(13)+Chr(10))
 
  DBCloseAll()
  */
@@ -298,16 +303,19 @@
  USE DBF\PRODUTOS
 
  SELECT PRODUTOS
- INDEX ON PRODUTOS->NOME                         TAG IND_NOME        TO NTX\IND_PRODUTOS // Cria o índice por nome
- INDEX ON PRODUTOS->CODIGO                       TAG IND_CODIGO      TO NTX\IND_PRODUTOS // Cria o índice por código
- INDEX ON Str(PRODUTOS->CODIGO,5)+PRODUTOS->NOME TAG IND_CODIGO_NOME TO NTX\IND_PRODUTOS // Cria o índice por código + nome
+ INDEX ON PRODUTOS->NOME                         TAG NOME    TO NTX\IND_PRODUTOS // Cria o índice por nome
+ INDEX ON PRODUTOS->CODIGO                       TAG CODIGO  TO NTX\IND_PRODUTOS // Cria o índice por código
+ INDEX ON Str(PRODUTOS->CODIGO,5)+PRODUTOS->NOME TAG CODNOME TO NTX\IND_PRODUTOS // Cria o índice por código + nome
 
  DBCloseAll()
  */
+ *
+ * ATENÇÃO: TAG é o nome do índice, e pode ter no máximo 10 caracteres. Se informado mais de 10, o nome é automaticamente cortado.
+ *
  * No exemplo acima, foram criados três índices, no arquivo de nome IND_PRODUTOS (na pasta NTX):
- * 1 - IND_NOME ordena a tabela por nome
- * 2 - IND_CODIGO ordena a tabela por código
- * 3 - IND_CODIGO_NOME ordena a tabela por código + nome (como CODIGO é numérico, foi preciso convertê-lo para caractere, para concatená-lo ao NOME)
+ * 1 - NOME ordena a tabela por nome
+ * 2 - CODIGO ordena a tabela por código
+ * 3 - CODNOME ordena a tabela por código + nome (como CODIGO é numérico, foi preciso convertê-lo para caractere, para concatená-lo ao NOME)
  *
  * Depois de criado, o arquivo de índice continuará existindo até que seja deletado.
  * Portanto, não há necessidade de ficar indexando (INDEX ON) a tabela toda hora.
@@ -330,63 +338,47 @@
  SET INDEX TO                  // Desfaz o relacionamento
  DBCloseAll()
  */
- * Como o primeiro índice do arquivo é o IND_NOME, a tabela será ordenada pelo campo NOME.
+ * Como o primeiro índice do arquivo é o NOME, a tabela será ordenada pelo campo NOME.
  * Para trocar a ordenação da tabela, use a função OrdSetFocus(TAG):
  /*
  SELECT 0
  USE DBF\PRODUTOS
- SET INDEX TO IND_PRODUTOS
+ SET INDEX TO NTX\IND_PRODUTOS
 
  SELECT PRODUTOS
- OrdSetFocus("IND_CODIGO") // Ordena a tabela por código
+ OrdSetFocus("NOME") // Ordena a tabela por código
 
  SELECT PRODUTOS
- OrdSetFocus("IND_NOME") // Ordena a tabela por nome
+ OrdSetFocus("CODIGO") // Ordena a tabela por nome
+
+ SELECT PRODUTOS
+ OrdSetFocus("CODNOME") // Ordena a tabela por código e nome
 
  DBCloseAll()
  */
- *
  * =============================================================================
  *                         Posicionamento de um registro
  *
  * Existem diversas formas de navegar pelos registros de uma tabela.
  * Qual vai ser usada? Tudo depende da situação.
  *
- * Lembre-se de selecionar a tabela desejada, antes de navegar por ela :)
+ * DBGoTop() posiciona no primeiro registro da tabela.
+ * DBSkip() posiciona no próximo registro.
+ * DBGoBottom() posiciona no último registro da tabela.
  *
- * Se você quer ir para o primeiro registro da tabela, use DBGoTop():
+ * Exemplo:
  /*
  SELECT 0
  USE DBF\PRODUTOS
 
  SELECT PRODUTOS
- DBGoTop()
+ DBGoTop()       // Resultado: Posiciona no Registro 1
+ DBSkip()        // Resultado: Posiciona no registro 2
+ DBGoBottom()    // Resultado: Posiciona no registro 4
 
  DBCloseAll()
  */
- *
- * Se você quer ir para o próximo registro, use DBSkip():
- /*
- SELECT 0
- USE DBF\PRODUTOS
-
- SELECT PRODUTOS
- DBSkip()
-
- DBCloseAll()
- */
- *
- * Se você quer ir para o último registro, use DBGoBottom():
- /*
- SELECT 0
- USE DBF\PRODUTOS
-
- SELECT PRODUTOS
- DBGoBottom()
-
- DBCloseAll()
- */
- * Se você quer percorrer todos os registros de uma tabela, você pode fazer assim:
+ * Para percorrer todos os registros de uma tabela, você pode fazer assim:
  /*
  SELECT 0
  USE DBF\PRODUTOS
@@ -399,59 +391,179 @@
 
  DBCloseAll()
  */
- *
- * Se você quer posicionar em um registro específico, mas não sabe onde ele está, você precisa buscar alguma informação que identifique-o.
- * Para isso, usaremos a função DBSeek(). Exemplo:
- /*
- SELECT 0
- USE DBF\PRODUTOS
- SET INDEX TO NTX\IND_PRODUTOS
-
- SELECT PRODUTOS
- OrdSetFocus("IND_CODIGO") // Ordena a tabela por código
- DBSeek(2)                 // Busca o número 2 no campo ordenado (CODIGO)
- */
- * No exemplo acima, DBSeek() vai posicionar no primeiro registro que existir na tabela, com o campo CODIGO igual à 2.
- *
- * Você pode também, buscar mais de uma informação:
- /*
- SELECT 0
- USE DBF\PRODUTOS
- SET INDEX TO NTX\IND_PRODUTOS
-
- SELECT PRODUTOS
- OrdSetFocus("IND_CODIGO_NOME") // Ordena a tabela por código
- DBSeek(Str(2,5)+"PRODUTO TESTE 2") // Busca "    3"+ "PRODUTO TESTE 2" nos campos ordenados (Str(CODIGO,5)+NOME)
- */
- * DBSeek() retorna .T. se encontrar algum registro, .F. se não encontrar.
+ * Para posicionar em um registro específico, mas não se sabe em que posição ele está, você precisa buscar alguma informação que identifique-o.
+ * Para isso, usaremos a função DBSeek(). DBSeek() retorna .T. se encontrar algum registro, .F. se não encontrar.
  * Você pode usá-lo em um IF para confirmar se um registro foi encontrado ou não.
  *
- * E se ele encontrar mais de um registro?
- * Como dito anteriormente, DBSeek() posicionária no primeiro registro que encontrou.
- * E já que a tabela está ordenada, os demais registros virão em seguida.
- *
- * Nesse caso, você pode fazer um DO WHILE para percorrer os demais registros válidos:
+ * No exemplo abaixo, DBSeek() vai posicionar no primeiro registro encontrado, com o campo CODIGO igual a 2:
  /*
  SELECT 0
  USE DBF\PRODUTOS
  SET INDEX TO NTX\IND_PRODUTOS
 
  SELECT PRODUTOS
- OrdSetFocus("IND_NOME") // Ordena a tabela por código
+ OrdSetFocus("CODIGO") // Ordena a tabela pelo campo CODIGO
+
+ IF DBSeek(2) // Busca o número 2 no campo ordenado
+    MessageBox(,"Achou: "+PRODUTOS->NOME)
+  ELSE
+    MessageBox(,"Não achou")
+ ENDIF
+
+ DBCloseAll()
+ */
+ * Para buscar mais de uma informação:
+ /*
+ SELECT 0
+ USE DBF\PRODUTOS
+ SET INDEX TO NTX\IND_PRODUTOS
+
+ SELECT PRODUTOS
+ OrdSetFocus("CODNOME") // Ordena a tabela por código + nome (Str(CODIGO,5)+NOME)
+
+ IF DBSeek(Str(3,5)+"PRODUTO TESTE 3") // Busca "    3"+"PRODUTO TESTE 3" nos campos ordenados
+    MessageBox(,"Achou: "+PRODUTOS->NOME)
+  ELSE
+    MessageBox(,"Não achou")
+ ENDIF
+
+ DBCloseAll()
+ */
+ * Se houver mais de um registro com a informação buscada, DBSeek() posicionará no primeiro registro encontrado.
+ * Por exemplo, na tabela temos 4 produtos com nome "PRODUTO TESTE n". Ao buscar por "PRODUTO TESTE", o DBSeek() encontrará o primeiro: "PRODUTO TESTE 1":
+ /*
+ SELECT 0
+ USE DBF\PRODUTOS
+ SET INDEX TO NTX\IND_PRODUTOS
+
+ SELECT PRODUTOS
+ OrdSetFocus("NOME") // Ordena a tabela pelo campo NOME
+ DBSeek("PRODUTO TESTE") // Busca "PRODUTO TESTE" no campo ordenado
+ MessageBox(,"Registro: "+Str(Recno())) // Resultado: Registro 1
+
+ DBCloseAll()
+ */
+ * Vamos supor que você precisa inativar todos os produtos com nome "PRODUTO TESTE".
+ * Já que a tabela está ordenada por nome, os demais produtos estão logo após do primeiro registro encontrado.
+ *
+ * Nesse caso, você pode fazer um DO WHILE para percorrer os demais produtos:
+ /*
+ SELECT 0
+ USE DBF\PRODUTOS
+ SET INDEX TO NTX\IND_PRODUTOS
+
+ SELECT MOVPROD
+ OrdSetFocus("NOME") // Ordena a tabela por código
  DBSeek("PRODUTO TESTE") // Busca "PRODUTO TESTE" no campo ordenado (NOME)
 
- // Há dois produtos com esse nome na tabela PRODUTOS. DBSeek() posicionou no primeiro.
+ // Há quatro produtos com esse nome na tabela PRODUTOS. DBSeek() posicionou no primeiro.
  // O DO WHILE abaixo vai percorrer a tabela PRODUTOS, enquanto o NOME do registro posicionado, corresponder ao que foi buscado ("PRODUTO TESTE").
- // Portanto, a mensagem será exibida duas vezes.
+ // Portanto, a mensagem será exibida quatro vezes.
 
- DO WHILE !Eof() .AND. PRODUTOS->NOME=="PRODUTO TESTE"
-    MessageBox(,Str(PRODUTO->CODIGO)+' '+PRODUTO->NOME)
+ DO WHILE !Eof() .AND. SubStr(PRODUTOS->NOME,1,13)=="PRODUTO TESTE"
+    MessageBox(,"Começo do DO WHILE"              +Chr(13)+Chr(10)+;
+                "Código: "  +Str(PRODUTOS->CODIGO)+Chr(13)+Chr(10)+;
+                "Nome: "    +PRODUTOS->NOME       +Chr(13)+Chr(10)+;
+                "Registro: "+Str(RecNo()))
+
+    RLock()
+    REPLACE INATIVO WITH .F.
+    DBCommit()
+    DBUnlock()
+
     DBSkip()
+
+    MessageBox(,"Fim do DO WHILE"                 +Chr(13)+Chr(10)+;
+                "Código: "  +Str(PRODUTOS->CODIGO)+Chr(13)+Chr(10)+;
+                "Nome: "    +PRODUTOS->NOME       +Chr(13)+Chr(10)+;
+                "Registro: "+Str(RecNo()))
+ ENDDO
+
+ DBCloseAll()
+ */
+ * =============================================================================
+ *                                  Filtro
+ *
+ * Há duas formas de filtrar uma tabela DBF:
+ *
+ * 1 - com INDEX ON ... FOR
+ * 2 - com DBSetFilter()
+ *
+ * Exemplo de filtro com INDEX ON ... FOR:
+ /*
+ SELECT 0
+ USE DBF\PRODUTOS
+ INDEX ON PRODUTOS->CODIGO TAG "CODFILTRO" TO NTX\IND_PRODUTOS FOR PRODUTOS->CODIGO==1 .OR. PRODUTOS->CODIGO==2
+
+ DBGoTop()
+ DO WHILE !Eof() // Resultado: exibirá apenas os produtos de código 1 e 2
+    MessageBox(,"Ordem: "   +OrdSetFocus()        +Chr(13)+Chr(10)+;
+                "Registro: "+Str(RecNo())         +Chr(13)+Chr(10)+;
+                "Código: "  +Str(PRODUTOS->CODIGO)+Chr(13)+Chr(10)+;
+                "Nome: "    +PRODUTOS->NOME       +Chr(13)+Chr(10))
+   DBSkip()
+ ENDDO
+
+ DBCloseAll()
+ */
+ * Como o filtro fica ligado à um índice, se a ordem da tabela mudar, o filtro também se perde. Exemplo:
+ /*
+ SELECT 0
+ USE DBF\PRODUTOS
+ SET INDEX TO NTX\IND_PRODUTOS
+
+ OrdSetFocus("CODFILTRO")
+ DBGoTop()
+ DO WHILE !Eof() // Exibirá os produtos de código 1 e 2
+    MessageBox(,"Ordem: "   +OrdSetFocus()        +Chr(13)+Chr(10)+;
+                "Registro: "+Str(RecNo())         +Chr(13)+Chr(10)+;
+                "Código: "  +Str(PRODUTOS->CODIGO)+Chr(13)+Chr(10)+;
+                "Nome: "    +PRODUTOS->NOME       +Chr(13)+Chr(10))
+   DBSkip()
+ ENDDO
+
+ OrdSetFocus("CODIGO")
+ DBGoTop()
+ DO WHILE !Eof() // Exibirá todos os os produtos, porque o índice CODIGO não tem filtro
+    MessageBox(,"Ordem: "   +OrdSetFocus()        +Chr(13)+Chr(10)+;
+                "Registro: "+Str(RecNo())         +Chr(13)+Chr(10)+;
+                "Código: "  +Str(PRODUTOS->CODIGO)+Chr(13)+Chr(10)+;
+                "Nome: "    +PRODUTOS->NOME       +Chr(13)+Chr(10))
+   DBSkip()
+ ENDDO
+
+ DBCloseAll()
+ */
+ * Com DBSetFilter() isso já não acontece, porque o filtro não estará ligado à um índice.
+ * Exemplo de filtro com DBSetFilter():
+ /*
+ SELECT 0
+ USE DBF\PRODUTOS
+ SET INDEX TO NTX\IND_PRODUTOS
+
+ DBSetFilter({|| PRODUTOS->CODIGO==1 .OR. PRODUTOS->CODIGO==2},"PRODUTOS->CODIGO==1 .OR. PRODUTOS->CODIGO==2")
+
+ DBGoTop()
+ DO WHILE !Eof() // Exibirá os produtos de código 1 e 2
+    MessageBox(,"Ordem: "   +OrdSetFocus()        +Chr(13)+Chr(10)+;
+                "Registro: "+Str(RecNo())         +Chr(13)+Chr(10)+;
+                "Código: "  +Str(PRODUTOS->CODIGO)+Chr(13)+Chr(10)+;
+                "Nome: "    +PRODUTOS->NOME       +Chr(13)+Chr(10))
+   DBSkip()
+ ENDDO
+
+ OrdSetFocus("CODIGO")
+ DBGoTop()
+ DO WHILE !Eof() // Exibirá os produtos de código 1 e 2, mesmo que a ordem tenha sido alterada
+    MessageBox(,"Ordem: "   +OrdSetFocus()        +Chr(13)+Chr(10)+;
+                "Registro: "+Str(RecNo())         +Chr(13)+Chr(10)+;
+                "Código: "  +Str(PRODUTOS->CODIGO)+Chr(13)+Chr(10)+;
+                "Nome: "    +PRODUTOS->NOME       +Chr(13)+Chr(10))
+   DBSkip()
  ENDDO
  */
  *
  * =============================================================================
- *
  PAUSAR_TELA()
  *
  IF LastKey()==27
