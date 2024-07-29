@@ -17,7 +17,7 @@
  *                             Criação de tabela
  *
  * Cria uma tabela. Exemplo:
- /*
+ *
  IF !IsDirectory("DBF")
     Run("MD DBF")
  ENDIF
@@ -27,12 +27,13 @@
                                  {"NOME"   ,"C",50,0},;
                                  {"PRECO"  ,"N",06,2},;
                                  {"DATA"   ,"D",08,0},;
-                                 {"INATIVO","L",01,0}})
+                                 {"INATIVO","L",01,0},;
+                                 {"CLIENTE","N",05,0}})
  ENDIF
 
  IF !File("DBF\CLIENTES.DBF")
-    DBCreate("DBF\CLIENTES.DBF",{{"CODIGO" ,"N",05,0},;
-                                 {"NOME"   ,"C",50,0}})
+    DBCreate("DBF\CLIENTES.DBF",{{"NOME"   ,"C",50,0},;
+                                 {"CODIGO" ,"N",05,0}})
  ENDIF
  */
  * O primeiro parâmetro é o nome da tabela, e o segundo um array com a estrutura da tabela.
@@ -163,25 +164,33 @@
  SELECT 0
  USE DBF\CLIENTES
 
+ SELECT CLIENTES
+ DBAppend()
+ REPLACE CODIGO WITH 1
+ REPLACE NOME   WITH "JOSÉ"
+
+ SELECT CLIENTES
+ DBAppend()
+ REPLACE CODIGO WITH 3
+ REPLACE NOME   WITH "GABRIEL"
+
  SELECT PRODUTOS
  DBAppend()
  REPLACE CODIGO  WITH 2
  REPLACE NOME    WITH "PRODUTO TESTE 2"
+ REPLACE CLIENTE WITH 3
 
  SELECT PRODUTOS
  DBAppend()
  REPLACE CODIGO  WITH 3
  REPLACE NOME    WITH "PRODUTO TESTE 3"
+ REPLACE CLIENTE WITH 3
 
  SELECT PRODUTOS
  DBAppend()
  REPLACE CODIGO  WITH 4
  REPLACE NOME    WITH "PRODUTO TESTE 4"
-
- SELECT CLIENTES
- DBAppend()
- REPLACE CODIGO WITH 1
- REPLACE NOME   WITH "JOSÉ"
+ REPLACE CLIENTE WITH 1
 
  DBCommitAll()
  DBCloseAll()
@@ -205,7 +214,7 @@
 
  SELECT PRODUTOS
  RLock()
- REPLACE NOME WITH "AMORA"
+ REPLACE PRECO WITH 4.00
  DBCommit()
  DBUnlock()
 
@@ -221,7 +230,7 @@
 
  SELECT PRODUTOS
  RLock()
- REPLACE NOME WITH "ABACAXI"
+ REPLACE PRECO WITH 3.00
 
  SELECT CLIENTES
  RLock()
@@ -495,13 +504,14 @@
  USE DBF\PRODUTOS
  INDEX ON PRODUTOS->CODIGO TAG "CODFILTRO" TO NTX\IND_PRODUTOS FOR PRODUTOS->CODIGO==1 .OR. PRODUTOS->CODIGO==2
 
+ SELECT PRODUTOS
  DBGoTop()
  DO WHILE !Eof() // Resultado: exibirá apenas os produtos de código 1 e 2
     MessageBox(,"Ordem: "   +OrdSetFocus()        +Chr(13)+Chr(10)+;
                 "Registro: "+Str(RecNo())         +Chr(13)+Chr(10)+;
                 "Código: "  +Str(PRODUTOS->CODIGO)+Chr(13)+Chr(10)+;
                 "Nome: "    +PRODUTOS->NOME       +Chr(13)+Chr(10))
-   DBSkip()
+    DBSkip()
  ENDDO
 
  DBCloseAll()
@@ -512,6 +522,7 @@
  USE DBF\PRODUTOS
  SET INDEX TO NTX\IND_PRODUTOS
 
+ SELECT PRODUTOS
  OrdSetFocus("CODFILTRO")
  DBGoTop()
  DO WHILE !Eof() // Exibirá os produtos de código 1 e 2
@@ -519,9 +530,10 @@
                 "Registro: "+Str(RecNo())         +Chr(13)+Chr(10)+;
                 "Código: "  +Str(PRODUTOS->CODIGO)+Chr(13)+Chr(10)+;
                 "Nome: "    +PRODUTOS->NOME       +Chr(13)+Chr(10))
-   DBSkip()
+    DBSkip()
  ENDDO
 
+ SELECT PRODUTOS
  OrdSetFocus("CODIGO")
  DBGoTop()
  DO WHILE !Eof() // Exibirá todos os os produtos, porque o índice CODIGO não tem filtro
@@ -529,7 +541,7 @@
                 "Registro: "+Str(RecNo())         +Chr(13)+Chr(10)+;
                 "Código: "  +Str(PRODUTOS->CODIGO)+Chr(13)+Chr(10)+;
                 "Nome: "    +PRODUTOS->NOME       +Chr(13)+Chr(10))
-   DBSkip()
+    DBSkip()
  ENDDO
 
  DBCloseAll()
@@ -541,17 +553,19 @@
  USE DBF\PRODUTOS
  SET INDEX TO NTX\IND_PRODUTOS
 
+ SELECT PRODUTOS
+ OrdSetFocus("NOME")
  DBSetFilter({|| PRODUTOS->CODIGO==1 .OR. PRODUTOS->CODIGO==2},"PRODUTOS->CODIGO==1 .OR. PRODUTOS->CODIGO==2")
-
  DBGoTop()
  DO WHILE !Eof() // Exibirá os produtos de código 1 e 2
     MessageBox(,"Ordem: "   +OrdSetFocus()        +Chr(13)+Chr(10)+;
                 "Registro: "+Str(RecNo())         +Chr(13)+Chr(10)+;
                 "Código: "  +Str(PRODUTOS->CODIGO)+Chr(13)+Chr(10)+;
                 "Nome: "    +PRODUTOS->NOME       +Chr(13)+Chr(10))
-   DBSkip()
+    DBSkip()
  ENDDO
 
+ SELECT PRODUTOS
  OrdSetFocus("CODIGO")
  DBGoTop()
  DO WHILE !Eof() // Exibirá os produtos de código 1 e 2, mesmo que a ordem tenha sido alterada
@@ -559,11 +573,130 @@
                 "Registro: "+Str(RecNo())         +Chr(13)+Chr(10)+;
                 "Código: "  +Str(PRODUTOS->CODIGO)+Chr(13)+Chr(10)+;
                 "Nome: "    +PRODUTOS->NOME       +Chr(13)+Chr(10))
-   DBSkip()
+    DBSkip()
  ENDDO
+
+ DBClearFilter()
+
+ SELECT PRODUTOS
+ DBGoTop()
+ DO WHILE !Eof() // Exibirá todos os produtos
+    MessageBox(,"Ordem: "   +OrdSetFocus()        +Chr(13)+Chr(10)+;
+                "Registro: "+Str(RecNo())         +Chr(13)+Chr(10)+;
+                "Código: "  +Str(PRODUTOS->CODIGO)+Chr(13)+Chr(10)+;
+                "Nome: "    +PRODUTOS->NOME       +Chr(13)+Chr(10))
+    DBSkip()
+ ENDDO
+
+ DBCloseAll()
  */
  *
  * =============================================================================
+ *                              Relacionamento
+ *
+ * O relacionamento consiste em "amarrar" registros de duas tabelas que tenham algum dado em comum.
+ * Dessa forma, ao navegar por uma tabela, automaticamente a outra acompanha essa navegação.
+ *
+ * Por exemplo, vamos relacionar a tabela PRODUTOS e CLIENTES.
+ * Esse relacionamento será feito usando os campos PRODUTOS->CLIENTE e CLIENTES->CODIGO:
+ * A ideia é: percorrer os registros da tabela PRODUTOS, e exibir o nome do cliente.
+ *
+ * Primeiro, precisamos indexar a tabela CLIENTES pelo campo CODIGO, pois é a ordem que irá apontar qual campo será relacionado:
+ /*
+ SELECT 0
+ USE DBF\CLIENTES
+ INDEX ON CLIENTES->CODIGO TAG CODIGO TO NTX\IND_CLIENTES
+ INDEX ON CLIENTES->NOME   TAG NOME   TO NTX\IND_CLIENTES
+
+ DBCloseAll()
+ */
+ * A ordenação da tabela CLIENTES é que vai apontar qual campo será relacionado.
+ * Para fazer o relacionamento:
+ /*
+ SELECT 0
+ USE DBF\CLIENTES
+ SET INDEX TO NTX\IND_CLIENTES
+
+ SELECT CLIENTES
+ OrdSetFocus("CODIGO") // Ordena a tabela pelo campo que será relacionado
+
+ SELECT 0
+ USE DBF\PRODUTOS
+ DBSetRelation("CLIENTES",{|| PRODUTOS->CLIENTE},"PRODUTOS->CLIENTE") // Relaciona a tabela CLIENTES (campo CODIGO) com a PRODUTOS (campo CLIENTE)
+
+ SELECT CLIENTES
+ OrdSetFocus("NOME")
+
+ SELECT PRODUTOS
+ DBGoTop()
+ DO WHILE !Eof()
+    MessageBox(,"Produto: "+PRODUTOS->NOME+Chr(13)+Chr(10)+;
+                "Cliente: "+CLIENTES->NOME+Chr(13)+Chr(10))
+    DBSkip()
+ ENDDO
+
+ DBCloseAll()
+ */
+ *
+ * ATENÇÃO: Mudar a ordem da tabela CLIENTES, e navegar na tabela PRODUTOS, desfaz o relacionamento.
+ *
+ * =============================================================================
+ *            Dica - Salvar e restaurar o "status" da tabela
+ *
+ * Ao trabalhar com tabelas DBF, recomendamos que:
+ *
+ * 1 - Você salve a tabela selecionada, antes de fazer um SELECT
+ * 2 - Você salve a ordem e o registro da tabela, antes de alterá-los
+ *
+ * Mas calma, que não é pra fazer isso toda hora rs
+ *
+ * A primeira dica é ideal de ser usada ao criar uma nova função, onde será usado o SELECT em algum momento.
+ * Já no começo da função SALVE a tabela, e antes de sair da função, RESTAURE a tabela que estava selecionada antes.
+ *
+ * Exemplo:
+ *
+ * FUNCTION EXEMPLO()
+ *
+ * LOCAL nArea:=Select() // Salva na variável nArea, o ID da tabela selecionada (ex: CLIENTES)
+ *
+ * SELECT PRODUTOS
+ * Faz alguma coisa
+ *
+ * Select(nArea) // Restaura a tabela que estava selecionada antes (ex: CLIENTES)
+ *
+ * RETURN NIL
+ *
+ * A segunda dica é ideal  para casos em que é necessário alterar a ordem ou o registro de uma tabela.
+ * SALVE a ordem e o registro da tabela antes de alterá-los, e depois RESTAURE-os.
+ *
+ * Exemplo:
+ *
+ * FUNCTION EXEMPLO()
+ *
+ * LOCAL nArea:=Select(), cOrdem_Produtos, nRegistro_Produtos
+ *
+ * SELECT PRODUTOS
+ * cOrdem_Produtos   :=OrdSetFocus("NOME")  // Salva a ordem da tabela PRODUTOS (ex: CODIGO), e altera a ordem para NOME
+ * nRegistro_Produtos:=RecNo()              // Salva o registro da tabela PRODUTOS (ex: 1)
+ *
+ * DBSeek("PRODUTO TESTE 3")                // Muda de registro (ex: 3)
+ * Faz alguma coisa
+ *
+ * PRODUTOS->(OrdSetFocus(cOrdem_Produtos)) // Restaura a ordem anterior (ex: CODIGO)
+ * PRODUTOS->(DBGoTo(nRegistro_Produtos))   // Restaura o registro anterior (ex: 1)
+ *
+ * Select(nArea) // Restaura a tabela que estava selecionada antes (ex: CLIENTES)
+ *
+ * RETURN NIL
+ *
+ * Ao salvar e restaurar esses status, você evitará bugs que podem acontecer ao voltar para a função pai.
+ * Um exemplo bem comum no Autosys, são nas telas que exibem listas (ex: cadastro de clientes, produtos, etc).
+ *
+ * Ao acessar uma funcionalidade dentro dessas telas, e voltar para a lista, se o "Salvar e restaurar" não for feito corretamente, pode acontecer:
+ * - Um erro, porque o sistema tentará acessar campos de uma tabela que não está selecionada mais.
+ * - A ordem será alterada (ex: estava por ordem alfabética, e não está mais)
+ * - O registro não é mais o mesmo (ex: você estava no produto 1, e aí foi pro último)
+ */
  PAUSAR_TELA()
  *
  IF LastKey()==27
