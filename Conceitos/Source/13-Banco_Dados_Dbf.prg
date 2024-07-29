@@ -17,7 +17,7 @@
  *                             Criação de tabela
  *
  * Cria uma tabela. Exemplo:
- *
+ /*
  IF !IsDirectory("DBF")
     Run("MD DBF")
  ENDIF
