@@ -1,5 +1,8 @@
 /*Interface em modo texto*/
 
+ #include "Dbedit.ch"   // Necessário para usar o modo e retorno no DBEdit().
+
+
  FUNCTION TELA()
 
  LIMPAR_TELA()
@@ -166,6 +169,32 @@
 
  *         [<xColumnPostBlock>)      // Usado da mesma forma que <aColumnPreBlock>, mas é usado para pós-validação.
  *
+ *
+ * Modos do DBEdit():
+ * -------------------
+ * Os modos DbEdit() são passados como parâmetro para a função do usuário e indicam seu estado interno.
+ * Eles são codificados como valores numéricos através de CONSTANTES no arquivo DBEDIT.CH
+ *
+ * DE_INIT        -1    // Exibição de navegação inicial
+ * DE_IDLE        0     // Modo ocioso, qualquer pressionamento de tecla é tratado e nenhum pressionamento de tecla está pendente.
+ * DE_HITTOP      1     // Tentativa de mover o ponteiro do registro além do início do arquivo
+ * DE_HITBOTTOM   2     // Tentativa de mover o ponteiro do registro além do final do arquivo
+ * DE_EMPTY       3     // Quando a área de trabalho não tem registros
+ * DE_EXCEPT      4     // Exceção chave
+ *
+ * Retornos do DBEdit:
+ * ---------------------
+ * O valor de retorno da função do usuário <bcUserFunc>, fala para o DbEdit() como ele deve proceder com a navegação.
+ * As seguintes constantes podem ser usadas como valores de retorno:
+ *
+ * DE_ABORT       0     // Abortar
+ * DE_CONT        1     // Continue como está
+ * DE_REFRESH     2     // Força a releitura e reexibição de todas as linhas.
+ *
+ *
+ * PS: na função de usuário EXIBE_CADASTRO_PRODUTOS(), as função INCLUIR, EXCLUIR, ALTERAR, CONSULTAR e RELATÓRIOS
+ * não foram implementadas, pois serão trabalhadas durante o projeto do CRUD.
+ *
  * Exemplo
    DB_EDIT()
  *
@@ -302,6 +331,7 @@ RETURN NIL
  @ 01, 00 SAY Date()
  @ 02, 00 SAY Replicate("-",80)
  @ 23, 00 SAY Replicate("-",80)
+ @ 24, 00 SAY PadC(" INS - INCLUIR / ENTER - ALTERAR / DEL - EXCLUIR / LETRA - BUSCAR / F2 - REL ", 80)
 
  SELECT 0
  USE DBF\PRODUTOS
@@ -313,13 +343,33 @@ RETURN NIL
  aTitulos:={"Codigo","Nome","Preco","Inativo"}
  aCampos :={"CODIGO", "NOME", "PRECO","INATIVO"}
 
- //DBEdit sem parâmetros
+ //DBEdit sem parâmetros - retorna todos os dados da tabela sem configuração
  *DBEdit()
 
  //Definição do tamanho do DbEdit
-* DBEdit(03, 00, 22, 80, aCampos,,,aTitulos)  //(posLinhaInicial, posColunaInicial, alturaGrid, larguraGrid....)
+ DBEdit(03, 00, 22, 80, aCampos,"EXIBE_CADASTRO_PRODUTOS",,aTitulos)  //(posLinhaInicial, posColunaInicial, alturaGrid, larguraGrid....)
 
  //DBEdit quase completo
  *DBEdit(03, 00, 22, 80, aCampos, , ,aTitulos,'#','*','$','@')
 
  RETURN NIL
+
+*------------------------------------*
+ FUNCTION EXIBE_CADASTRO_PRODUTOS(nModo)
+
+ IF nModo==4
+    IF LastKey()==22
+       *INCLUIR()   //Vincula a função INCLUIR a tecla "INSERT".
+     ELSEIF LastKey()==13
+       *ALTERAR()   //Vincula a função ALTERAR a tecla "ENTER".
+     ELSEIF LastKey()==7
+       *EXCLUIR()   //Vincula a função DELETAR a tecla "DELETE".
+     ELSEIF LastKey()>=32 .AND. LastKey()<127
+       *CONSULTAR() //Vincula a função CONSULTAR a qualquer letra.
+     ELSEIF LASTKEY()==-1
+       *IMPRIMIR()  //Vincula a função IMPRIMIR(RELATÓRIO) a tecla F2.
+    ENDIF
+ ENDIF
+
+
+ RETURN 2   //O retorno 2 da função do usuário, atualiza o DBEdit()
