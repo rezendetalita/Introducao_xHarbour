@@ -123,13 +123,51 @@
  * Exemplo 2
  * PICT_2()
  *
- * =============================================================================================*
+ * ===============================================================================================================================*
  *                                     DBEdit()
  *
- * A função DbEdit() é usada para exibir dados armazenados em um arquivo DBF na forma tabular.
+ * A função DbEdit() é usada para exibir dados armazenados de um arquivo DBF na forma GRID.
+ *
+ * Sintaxe:
+ * DbEdit( [<nTop>]           , ;    // <nTop> e <nLeft> indicam as coordenadas para o canto superior esquerdo da tela.
+ *         [<nLeft>]          , ;
+ *
+ *         [<nBottom>]        , ;    // Indica a coordenada da linha inferior da tela (altura).
+ *
+ *         [<nRight>]         , ;    // Indica a coordenada da coluna direita da tela (largura).
+ *
+ *         [<aColumns>]       , ;    // Vetor contendo o nome dos campos da tabela que serão exibidos na tela.
+ *                                      Se esse parâmetro não for especificado, serão exibidos todos os campos da tabela atual.
+ *
+ *         [<bcUserFunc>]     , ;    // Envia o nome de uma função definida pelo usuário que é executada quando uma tecla não reconhecível
+ *                                      é pressionada ou quando não há nenhuma tecla pendente no buffer do teclado.
+ *                                      Não coloque parênteses ou argumentos.
+ *
+ *         [<xSayPictures>]   , ;    // Define a formatação dos elementos apresentados, pode ser um vetor ou uma string.
+ *                                      Se for um vetor, o seu conteúdo deve ser as máscaras de formatação de cada coluna.
+ *                                      Se for uma string, a mesma formatação será aplicada a todas as colunas.
+ *                                      Se não for especificado, a formatação de dados adequada de cada dado será aplicada automaticamente.
+ *
+ *         [<xColumnHeaders>] , ;    // Define os cabeçalhos exibidos para cada coluna.
+ *                                      Se não for informado, os cabeçalhos receberão os nomes dos campos da tabela que serão retornados.
+ *
+ *         [<xHeadingSep>     , ;    // Usado para desenhar linhas horizontais que separam os títulos das colunas da área de exibição de dados.
+ *
+ *         [<xColumnSep>      , ;    // Define os separadores dos cabeçalhos das colunas. Também pode ser um vetor ou uma string.
+ *                                      Se for um vetor, o seu conteúdo deve ser os separadores dos cabeçalhos de cada coluna.
+ *                                      Se for uma string, o mesmo separador será usado para todas as colunas.
+ *
+ *         [<xFootingSep>     , ;    // Utilizado como <xHeadingSep> para a exibição de uma linha horizontal separando a área de rodapé
+ *                                      das colunas da área de dados.
+ *
+ *         [<xColumnFootings> , ;    // Usado como <xColumnHeaders> para a exibição dos rodapés das colunas.
+
+ *         [<xColumnPreBlock> , ;    // Usado para pré-validar a entrada de dados na célula atual da tela.
+
+ *         [<xColumnPostBlock>)      // Usado da mesma forma que <aColumnPreBlock>, mas é usado para pós-validação.
  *
  * Exemplo
- * DB_GRID()
+   DB_EDIT()
  *
  * =============================================================================================*
 
@@ -254,36 +292,34 @@ RETURN NIL
  RETURN NIL
 *-------------------------------------------------*
 
- /*FUNCTION DB_GRID()
+ FUNCTION DB_EDIT()
 
- CRIAR_ARQUIVO()
+ LOCAL aCampos, aTitulos
 
- USE ficha
+ LIMPAR_TELA()
 
- Browse()
+ @ 01, 00 SAY PadC(" CADASTRO DE PRODUTOS ",80)
+ @ 01, 00 SAY Date()
+ @ 02, 00 SAY Replicate("-",80)
+ @ 23, 00 SAY Replicate("-",80)
+
+ SELECT 0
+ USE DBF\PRODUTOS
+
+ SELECT PRODUTOS
+ OrdSetFocus("NOME")
+ DBGoTop()
+
+ aTitulos:={"Codigo","Nome","Preco","Inativo"}
+ aCampos :={"CODIGO", "NOME", "PRECO","INATIVO"}
+
+ //DBEdit sem parâmetros
+ *DBEdit()
+
+ //Definição do tamanho do DbEdit
+* DBEdit(03, 00, 22, 80, aCampos,,,aTitulos)  //(posLinhaInicial, posColunaInicial, alturaGrid, larguraGrid....)
+
+ //DBEdit quase completo
+ *DBEdit(03, 00, 22, 80, aCampos, , ,aTitulos,'#','*','$','@')
 
  RETURN NIL
-*-------------------------------------------------*
- FUNCTION CRIAR_ARQUIVO()
-
- LOCAL x, aStruct:={{ "NOME"      , "C" , 50, 0 },;
-                    { "NASCIMENTO", "D" , 8 , 0 },;
-                    { "ALTURA"    , "N" , 6 , 4 },;
-                    { "PESO"      , "N" , 6 , 2 } }
-
- IF !FILE("ficha.dbf")
-    DBCREATE("ficha",aStruct)
-    USE ficha
-
-    FOR x:= 1 TO 50
-        APPEND
-        REPLACE NOME WITH "NOME " + STRZERO(5)
-        REPLACE NASCIMENTO WITH DATE() - (365 * hb_RandomInt(0,x))
-        REPLACE ALTURA WITH 1.6 + hb_RandomInt(1,x)/100
-        REPLACE PESO WITH 30+hb_RandomInt(10, x + 11)
-        SKIP
-    NEXT
-    USE
- ENDIF
-
- RETURN NIL*/
