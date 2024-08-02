@@ -1,6 +1,7 @@
 /*Interface em modo texto*/
 
- #include "Dbedit.ch"   // Necessário para usar o modo e retorno no DBEdit().
+// Necessário para usar o parâmentro modo e retorno no DBEdit() caso você use CONSTANTES na função do usuário.
+* #include "Dbedit.ch"
 
 
  FUNCTION TELA()
@@ -139,12 +140,11 @@
  *
  *         [<nRight>]         , ;    // Indica a coordenada da coluna direita da tela (largura).
  *
- *         [<aColumns>]       , ;    // Vetor contendo o nome dos campos da tabela que serão exibidos na tela.
+ *         [<aColumns>]       , ;    // Array contendo o nome dos campos da tabela que serão exibidos na tela.
  *                                      Se esse parâmetro não for especificado, serão exibidos todos os campos da tabela atual.
  *
- *         [<bcUserFunc>]     , ;    // Envia o nome de uma função definida pelo usuário que é executada quando uma tecla não reconhecível
- *                                      é pressionada ou quando não há nenhuma tecla pendente no buffer do teclado.
- *                                      Não coloque parênteses ou argumentos.
+ *         [<bcUserFunc>]     , ;    // Envia o nome de uma função que é executada para coordenar a navegação no grid.
+ *                                      Veja os exemplos de modos e retornos possiveis abaixo.
  *
  *         [<xSayPictures>]   , ;    // Define a formatação dos elementos apresentados, pode ser um vetor ou uma string.
  *                                      Se for um vetor, o seu conteúdo deve ser as máscaras de formatação de cada coluna.
@@ -172,24 +172,24 @@
  *
  * Modos do DBEdit():
  * -------------------
- * Os modos DbEdit() são passados como parâmetro para a função do usuário e indicam seu estado interno.
- * Eles são codificados como valores numéricos através de CONSTANTES no arquivo DBEDIT.CH
+ * Os modos DbEdit() são passados como parâmetro para a função do usuário e indicam o estado do grid naquele momento.
+ * Os valores que os modos podem assumi são:
  *
- * DE_INIT        -1    // Exibição de navegação inicial
- * DE_IDLE        0     // Modo ocioso, qualquer pressionamento de tecla é tratado e nenhum pressionamento de tecla está pendente.
- * DE_HITTOP      1     // Tentativa de mover o ponteiro do registro além do início do arquivo
- * DE_HITBOTTOM   2     // Tentativa de mover o ponteiro do registro além do final do arquivo
- * DE_EMPTY       3     // Quando a área de trabalho não tem registros
- * DE_EXCEPT      4     // Exceção chave
+ * -1    // Exibe a tela inicial do grid (sem dados retornados).
+ * 0     // Modo ocioso, quando nada está acontecendo no momento.
+ * 1     // Tentativa de mover o ponteiro do registro além do início do arquivo.
+ * 2     // Tentativa de mover o ponteiro do registro além do final do arquivo.
+ * 3     // Quando a área de trabalho não tem registros.
+ * 4     // Quando nenhuma das teclas pré-definidas foi pressionada.
  *
  * Retornos do DBEdit:
  * ---------------------
- * O valor de retorno da função do usuário <bcUserFunc>, fala para o DbEdit() como ele deve proceder com a navegação.
- * As seguintes constantes podem ser usadas como valores de retorno:
+ * O valor de retorno da função do usuário <bcUserFunc>, fala sobre como o DbEdit() deve proceder durante a navegação.
+ * Os seguintes valores de retorno podem ser usados:
  *
- * DE_ABORT       0     // Abortar
- * DE_CONT        1     // Continue como está
- * DE_REFRESH     2     // Força a releitura e reexibição de todas as linhas.
+ * 0     // Abortar o DBEdit.
+ * 1     // Continua da maneira como está.
+ * 2     // Força a atualização dos dados.
  *
  *
  * PS: na função de usuário EXIBE_CADASTRO_PRODUTOS(), as função INCLUIR, EXCLUIR, ALTERAR, CONSULTAR e RELATÓRIOS
@@ -200,11 +200,11 @@
  *
  * =============================================================================================*
 
- PAUSAR_TELA()
+ /*PAUSAR_TELA()
  *
  IF LastKey()==27
     MAIN()
- ENDIF
+ ENDIF*/
  *
 
  RETURN NIL
@@ -352,6 +352,12 @@ RETURN NIL
  //DBEdit quase completo
  *DBEdit(03, 00, 22, 80, aCampos, , ,aTitulos,'#','*','$','@')
 
+ PAUSAR_TELA()
+ *
+ IF LastKey()==27
+    MAIN()
+ ENDIF
+
  RETURN NIL
 
 *------------------------------------*
@@ -359,17 +365,97 @@ RETURN NIL
 
  IF nModo==4
     IF LastKey()==22
-       *INCLUIR()   //Vincula a função INCLUIR a tecla "INSERT".
+       INCLUIR()   //Vincula a função INCLUIR a tecla "INSERT".
      ELSEIF LastKey()==13
-       *ALTERAR()   //Vincula a função ALTERAR a tecla "ENTER".
+       ALTERAR()   //Vincula a função ALTERAR a tecla "ENTER".
      ELSEIF LastKey()==7
-       *EXCLUIR()   //Vincula a função DELETAR a tecla "DELETE".
+       EXCLUIR()   //Vincula a função DELETAR a tecla "DELETE".
      ELSEIF LastKey()>=32 .AND. LastKey()<127
-       *CONSULTAR() //Vincula a função CONSULTAR a qualquer letra.
+       CONSULTAR() //Vincula a função CONSULTAR a qualquer letra.
      ELSEIF LASTKEY()==-1
-       *IMPRIMIR()  //Vincula a função IMPRIMIR(RELATÓRIO) a tecla F2.
+       IMPRIMIR()  //Vincula a função IMPRIMIR(RELATÓRIO) a tecla F2.
     ENDIF
  ENDIF
 
 
  RETURN 2   //O retorno 2 da função do usuário, atualiza o DBEdit()
+
+*------------------------------------*
+ FUNCTION INCLUIR()
+
+ LIMPAR_TELA()
+
+ @ 03, 10 TO 05, 100 DOUBLE
+ @ 04, 11 SAY PadC(" Verifique a secao 'Novo registro' no prg Banco_Dados_Dbf ",100)
+
+ PAUSAR_TELA()
+ *
+ IF LastKey()==27
+    MAIN()
+ ENDIF
+
+ RETURN NIL
+
+*------------------------------------*
+ FUNCTION ALTERAR()
+
+ LIMPAR_TELA()
+
+ @ 03, 10 TO 05, 110 DOUBLE
+ @ 04, 01 SAY PadC(" Verifique a secao 'Alterar um registro' no prg Banco_Dados_Dbf ",110)
+
+ PAUSAR_TELA()
+ *
+ IF LastKey()==27
+    MAIN()
+ ENDIF
+
+ RETURN NIL
+
+*------------------------------------*
+ FUNCTION EXCLUIR()
+
+ LIMPAR_TELA()
+
+ @ 03, 10 TO 05, 110 DOUBLE
+ @ 04, 01 SAY PadC(" Verifique a secao 'Exclusao de um registro' no  prg Banco_Dados_Dbf ",110)
+
+ PAUSAR_TELA()
+ *
+ IF LastKey()==27
+    MAIN()
+ ENDIF
+
+ RETURN NIL
+
+*------------------------------------*
+ FUNCTION CONSULTAR()
+
+ LIMPAR_TELA()
+
+ @ 03, 10 TO 05, 110 DOUBLE
+ @ 04, 01 SAY PadC(" Verifique a secao de 'Posicionamento de um registro' no prg Banco_Dados_Dbf ",110)
+
+ PAUSAR_TELA()
+ *
+ IF LastKey()==27
+    MAIN()
+ ENDIF
+
+ RETURN NIL
+
+*------------------------------------*
+ FUNCTION IMPRIMIR()
+
+ LIMPAR_TELA()
+
+ @ 03, 10 TO 05, 110 DOUBLE
+ @ 04, 01 SAY PadC(" Verifique as secoes sobre 'Files' do prg Funcoes_xHarbour ",110)
+
+ PAUSAR_TELA()
+ *
+ IF LastKey()==27
+    MAIN()
+ ENDIF
+
+ RETURN NIL
