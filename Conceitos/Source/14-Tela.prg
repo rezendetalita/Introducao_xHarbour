@@ -26,7 +26,7 @@
  *   @ <nLinTopo>, <nColTopo>, <nLinBase>, <nColBase> BOX <cCaixa>
  *
  * Exemplo:
- * @ 06, 01, 05, 50 BOX "*"
+ * @ 06, 01, 10, 50 BOX "*"
  *
  *
  * @...TO  - é mais simples do que o @...BOX, porque ele já pressupõe quais
@@ -297,7 +297,7 @@ RETURN NIL
 
  @ 15,00 SAY Replicate("-",70)
 
- @ 17,05 SAY "Informe o nome : " GET cNome3 PICT "!@"
+ @ 17,05 SAY "Informe o nome : " GET cNome3 PICT "@!"
  @ 18,05 SAY "Idade : " GET nIdade3
 
  READ
