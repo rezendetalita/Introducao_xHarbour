@@ -507,7 +507,8 @@
  SELECT PRODUTOS
  DBGoTop()
  DO WHILE !Eof() // Resultado: exibirá apenas os produtos de código 1 e 2
-    MessageBox(,"Ordem: "   +OrdSetFocus()        +Chr(13)+Chr(10)+;
+    MessageBox(,"Filtro com INDEX ON ... FOR"     +Chr(13)+Chr(10)+;
+                "Ordem: "   +OrdSetFocus()        +Chr(13)+Chr(10)+;
                 "Registro: "+Str(RecNo())         +Chr(13)+Chr(10)+;
                 "Código: "  +Str(PRODUTOS->CODIGO)+Chr(13)+Chr(10)+;
                 "Nome: "    +PRODUTOS->NOME       +Chr(13)+Chr(10))
@@ -526,27 +527,38 @@
  OrdSetFocus("CODFILTRO")
  DBGoTop()
  DO WHILE !Eof() // Exibirá os produtos de código 1 e 2
-    MessageBox(,"Ordem: "   +OrdSetFocus()        +Chr(13)+Chr(10)+;
-                "Registro: "+Str(RecNo())         +Chr(13)+Chr(10)+;
-                "Código: "  +Str(PRODUTOS->CODIGO)+Chr(13)+Chr(10)+;
-                "Nome: "    +PRODUTOS->NOME       +Chr(13)+Chr(10))
+    MessageBox(,"Filtro com INDEX ON ... FOR - ANTES"  +Chr(13)+Chr(10)+;
+                "Ordem: "   +OrdSetFocus()             +Chr(13)+Chr(10)+;
+                "Registro: "+Str(RecNo())              +Chr(13)+Chr(10)+;
+                "Código: "  +Str(PRODUTOS->CODIGO)     +Chr(13)+Chr(10)+;
+                "Nome: "    +PRODUTOS->NOME            +Chr(13)+Chr(10))
     DBSkip()
  ENDDO
 
  SELECT PRODUTOS
  OrdSetFocus("CODIGO")
  DBGoTop()
- DO WHILE !Eof() // Exibirá todos os os produtos, porque o índice CODIGO não tem filtro
-    MessageBox(,"Ordem: "   +OrdSetFocus()        +Chr(13)+Chr(10)+;
-                "Registro: "+Str(RecNo())         +Chr(13)+Chr(10)+;
-                "Código: "  +Str(PRODUTOS->CODIGO)+Chr(13)+Chr(10)+;
-                "Nome: "    +PRODUTOS->NOME       +Chr(13)+Chr(10))
+ DO WHILE !Eof() // Exibirá todos os produtos, porque o índice CODIGO não tem filtro
+    MessageBox(,"Filtro com INDEX ON ... FOR - DEPOIS" +Chr(13)+Chr(10)+;
+                "Ordem: "   +OrdSetFocus()             +Chr(13)+Chr(10)+;
+                "Registro: "+Str(RecNo())              +Chr(13)+Chr(10)+;
+                "Código: "  +Str(PRODUTOS->CODIGO)     +Chr(13)+Chr(10)+;
+                "Nome: "    +PRODUTOS->NOME            +Chr(13)+Chr(10))
     DBSkip()
  ENDDO
 
  DBCloseAll()
  */
  * Com DBSetFilter() isso já não acontece, porque o filtro não estará ligado à um índice.
+ *
+ * Sintaxe: DbSetFilter(<bFilter>, [<cFilter>])
+ * Parâmetros
+ *    <bFilter>: bloco de código contendo a expressão de filtro. A expressão deve gerar um valor lógico.
+ *    <cFilter>: expressão de filtro de forma escrita.
+ *
+ * OBS: “Um bloco de código é uma forma de guardar um trecho de código entre chaves {|| ...}.
+ *       Ele funciona como uma função, que pode ser passada como parâmetro e executada depois."
+ *
  * Exemplo de filtro com DBSetFilter():
  /*
  SELECT 0
@@ -558,10 +570,11 @@
  DBSetFilter({|| PRODUTOS->CODIGO==1 .OR. PRODUTOS->CODIGO==2},"PRODUTOS->CODIGO==1 .OR. PRODUTOS->CODIGO==2")
  DBGoTop()
  DO WHILE !Eof() // Exibirá os produtos de código 1 e 2
-    MessageBox(,"Ordem: "   +OrdSetFocus()        +Chr(13)+Chr(10)+;
-                "Registro: "+Str(RecNo())         +Chr(13)+Chr(10)+;
-                "Código: "  +Str(PRODUTOS->CODIGO)+Chr(13)+Chr(10)+;
-                "Nome: "    +PRODUTOS->NOME       +Chr(13)+Chr(10))
+    MessageBox(,"Filtro com DBSetFilter() - ANTES"  +Chr(13)+Chr(10)+;
+                "Ordem: "   +OrdSetFocus()          +Chr(13)+Chr(10)+;
+                "Registro: "+Str(RecNo())           +Chr(13)+Chr(10)+;
+                "Código: "  +Str(PRODUTOS->CODIGO)  +Chr(13)+Chr(10)+;
+                "Nome: "    +PRODUTOS->NOME         +Chr(13)+Chr(10))
     DBSkip()
  ENDDO
 
@@ -569,22 +582,26 @@
  OrdSetFocus("CODIGO")
  DBGoTop()
  DO WHILE !Eof() // Exibirá os produtos de código 1 e 2, mesmo que a ordem tenha sido alterada
-    MessageBox(,"Ordem: "   +OrdSetFocus()        +Chr(13)+Chr(10)+;
-                "Registro: "+Str(RecNo())         +Chr(13)+Chr(10)+;
-                "Código: "  +Str(PRODUTOS->CODIGO)+Chr(13)+Chr(10)+;
-                "Nome: "    +PRODUTOS->NOME       +Chr(13)+Chr(10))
+    MessageBox(,"Filtro com DBSetFilter() - DEPOIS" +Chr(13)+Chr(10)+;
+                "Ordem: "   +OrdSetFocus()          +Chr(13)+Chr(10)+;
+                "Registro: "+Str(RecNo())           +Chr(13)+Chr(10)+;
+                "Código: "  +Str(PRODUTOS->CODIGO)  +Chr(13)+Chr(10)+;
+                "Nome: "    +PRODUTOS->NOME         +Chr(13)+Chr(10))
     DBSkip()
  ENDDO
 
  DBClearFilter()
 
+ MessageBox(,'Limpei meu filtro')
+
  SELECT PRODUTOS
  DBGoTop()
  DO WHILE !Eof() // Exibirá todos os produtos
-    MessageBox(,"Ordem: "   +OrdSetFocus()        +Chr(13)+Chr(10)+;
-                "Registro: "+Str(RecNo())         +Chr(13)+Chr(10)+;
-                "Código: "  +Str(PRODUTOS->CODIGO)+Chr(13)+Chr(10)+;
-                "Nome: "    +PRODUTOS->NOME       +Chr(13)+Chr(10))
+    MessageBox(,"Filtro com DBSetFilter() - FINAL"  +Chr(13)+Chr(10)+;
+                "Ordem: "   +OrdSetFocus()          +Chr(13)+Chr(10)+;
+                "Registro: "+Str(RecNo())           +Chr(13)+Chr(10)+;
+                "Código: "  +Str(PRODUTOS->CODIGO)  +Chr(13)+Chr(10)+;
+                "Nome: "    +PRODUTOS->NOME         +Chr(13)+Chr(10))
     DBSkip()
  ENDDO
 
